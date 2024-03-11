@@ -17,5 +17,7 @@ public interface InvoiceService {
 
 	Invoice findById(Integer id);
 
-	List<Invoice> findByAccount(Account account);
+	List<Invoice> findBySeller(Account seller);
+	
+	List<Invoice> findByBuyer(Account buyer);
 }

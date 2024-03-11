@@ -45,7 +45,12 @@ public class InvoiceServiceImplement implements InvoiceService{
 	}
 
 	@Override
-	public List<Invoice> findByAccount(Account account) {
-		return dao.findByAccount(account);
+	public List<Invoice> findBySeller(Account seller) {
+		return dao.findBySeller(seller);
+	}
+
+	@Override
+	public List<Invoice> findByBuyer(Account buyer) {
+		return dao.findByBuyer(buyer);
 	}
 }

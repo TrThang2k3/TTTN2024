@@ -9,6 +9,8 @@ import com.poly.entity.Invoice;
 
 public interface InvoiceDAO extends JpaRepository<Invoice, Integer>{
 
-	List<Invoice> findByAccount(Account account);
+	List<Invoice> findByBuyer(Account buyer);
+
+	List<Invoice> findBySeller(Account seller);
 
 }
