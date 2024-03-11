@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"RoleID", "AccountID"})})
+@Table(name = "Authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"RoleName", "AccountID"})})
 public class Authority implements Serializable{
 	@Id
 	@Column(name = "AuthorityID")
@@ -30,6 +30,6 @@ public class Authority implements Serializable{
 	@JoinColumn(name = "AccountID")
 	private Account account;
 	@ManyToOne
-	@JoinColumn(name = "RoleID")
+	@JoinColumn(name = "RoleName")
 	private Role role;
 }

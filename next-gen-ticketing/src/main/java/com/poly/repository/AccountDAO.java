@@ -6,4 +6,8 @@ import com.poly.entity.Account;
 
 public interface AccountDAO extends JpaRepository<Account, Integer>{
 
+	Account findByEmail(String email);
+
+	Boolean existsByEmail(String email);
+
 }

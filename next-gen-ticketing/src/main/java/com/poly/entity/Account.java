@@ -40,6 +40,7 @@ public class Account implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date dayOfBirth;
 	private String walletAddress;
+	private Float balance = 0f;
 	private Boolean isPublisher = false;
 	private Boolean isActive = true;
 	@JsonIgnore

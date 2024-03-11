@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -24,11 +22,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "Roles")
 public class Role implements Serializable{
 	@Id
-	@Column(name = "RoleID")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	@Column(name = "RoleName")
 	private String name;
+	private String description;
 	@JsonIgnore
 	@OneToMany(mappedBy = "role")
 	private List<Authority> authorities;

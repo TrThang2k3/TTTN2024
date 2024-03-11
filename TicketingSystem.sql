@@ -13,25 +13,27 @@ CREATE TABLE Accounts (
     LastName NVARCHAR(50)  NOT NULL,
     Email NVARCHAR(100) NOT NULL,
 	Phone NVARCHAR(11),
-	DayOfBirth Date NOT NULL,
+	DayOfBirth DATE NOT NULL,
 	WalletAddress NVARCHAR(255),
-    IsPublisher BIT NOT NULL default 0,
-	IsActive BIT NOT NULL default 1,
+	Balance DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    IsPublisher BIT NOT NULL DEFAULT 0,
+    IsAdministrator BIT NOT NULL DEFAULT 0,
+	IsActive BIT NOT NULL DEFAULT 1,
 	UNIQUE(Email)
 );
 
 CREATE TABLE Roles (
-    RoleID INT PRIMARY KEY IDENTITY(1,1),
-    RoleName NVARCHAR(20) NOT NULL,
+    RoleName VARCHAR(10) PRIMARY KEY,
+    Description NVARCHAR(30) NOT NULL,
 );
 
 CREATE TABLE Authorities (
     AuthorityID INT PRIMARY KEY IDENTITY(1,1),
-    RoleID INT NOT NULL,
+    RoleName VARCHAR(8) NOT NULL,
 	AccountID INT NOT NULL,
-	FOREIGN KEY (RoleID) REFERENCES Roles(RoleID),
+	FOREIGN KEY (RoleName) REFERENCES Roles(RoleName),
 	FOREIGN KEY (AccountID) REFERENCES Accounts(AccountID),
-	UNIQUE(RoleID, AccountID)
+	UNIQUE(RoleName, AccountID)
 );
 
 -- Tạo bảng Nhà Phát Hành
