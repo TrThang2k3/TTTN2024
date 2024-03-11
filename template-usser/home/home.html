@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <span><strong>Bus</strong>Ticket</span>
+        </div>
+        <div class="menu">
+            <a href="../home/home.html">Home</a>
+            <a href="../ticket/ticket.html">Shop</a>
+            <a href="#">Services</a>
+            <a href="../contact/tesst.html">Contact</a>
+        </div>
+        <div class="btn-login">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+        </div>
+    </nav>
+
+    <!--Modal login-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form">
+                        <input type="email" id="email" name="email" required placeholder="Email">
+                        <input type="password" id="password" name="password" required placeholder="Password">
+                        <div class="checkbox">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">Remember passwords</label>
+                            <a href="">Forgot password ?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <hr>
+                        <div class="social-login">
+                            <button class="twitter-login"><i class="bi bi-twitter-x"></i>Sign in with Twitter</button>
+                        </div>
+                        <div class="social-login">
+                            <button class="google-login"><i class="bi bi-google"></i>Sign in with Google</button>
+                        </div>
+                        <div class="register">
+                            <p>You don't have an account ? <strong><a href="dang_ky.html" data-bs-toggle="modal"
+                                        data-bs-target="#registerModal">Sign up</a></strong></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Sign up-->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body1">
+                    <!-- Nội dung form đăng ký ở đây -->
+                    <form action="#" method="post">
+                        <input type="email" id="username" name="username" required placeholder="Username">
+                        <input type="email" id="email" name="email" required placeholder="Email">
+                        <input type="email" id="password" name="password" required placeholder="Password">
+                        <input type="password" id="confirm-password" name="confirm-password" required
+                            placeholder="Confirm password">
+                        <div class="checkbox">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">I agree with the<strong> policies and conditions of use</strong> services
+                                of the Website</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                    <div class="btn-dang_nhap">
+                        <span>You already have an account <a href="dang_nhap.html" data-bs-toggle="modal"
+                                data-bs-target="#loginModal">Sign in</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="img-header">
+            <img src="Thiết kế chưa có tên.png" alt="">
+            <div class="text-header">
+                <h2>Next-Gen Ticket Bus</h2>
+                <p>Buy bus tickets with <br>confidence and convenience.</p>
+
+            </div>
+            <div class="search-input">
+                <input type="text" placeholder="Search by keyword">
+                <button type="button"><i class="bi bi-search"></i></button>
+            </div>
+
+           
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <!-- Section 3: Two Columns with Cards -->
+        <div class="section3">
+            <!-- Card Container 1 -->
+            <div class="card-container">
+
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="5a0aaec8f58b87bc9cf11f7709c478bd.jpg" class="d-block w-100 slide-img" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="240b866e0d710678749769c3de060752.jpg" class="d-block w-100 slide-img" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="8e84de64939ba6984fadd6b3ee6633a2.jpg" class="d-block w-100 slide-img" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <!-- Add more cards as needed -->
+            </div>
+
+            <!-- Card Container 2 -->
+            <div class="card-container2">
+                <h3>Wellcom</h3>
+                <h1>Next-Gen Ticket Bus</h1>
+                <p>Welcome to Next-Gen Ticket Bus Solution! We are proud to introduce an advanced bus ticket system,
+                    designed to improve the passenger experience and optimize the operations of bus service operators.
+                </p>
+                <p>Our system connects to the Ticketer Smart Gateway to communicate with vehicles, creating a connected
+                    ecosystem for IT infrastructure on buses. For electric vehicles, it also enables advanced tracking
+                    of energy consumption. The system provides real-time information to passengers through journey
+                    assistance applications and displays at transfer stations. This improves the passenger experience
+                    and optimizes operator operational management.
+                    Our ticket machines are integrated with a separate card reader, which gives us more information
+                    about our passengers' origin and destination. This simultaneously enhances the management and
+                    monitoring capabilities of the system.</p>
+                <!-- Add more cards as needed -->
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-ft">
+            <div class="rowft">
+                <div class="footer-col">
+                    <h4 style="margin-left: 30px;">Contact Partners</h4>
+                    <ul>
+                        <li><a href="">Phone: 0564.895.123</a></li>
+                        <li><a href="">Hotline: 096.423.568</a></li>
+                        <li><a href="">Email: NGTicketBus@gmail.com</a></li>
+                        <li><a href="">Address: Quang Trung Software Park</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 style="margin-left: 30px;">Information</h4>
+                    <ul>
+                        <li><a href="">About Us</a></li>
+                        <li><a href="">Promotion</a></li>
+                        <li><a href="">Payment methods</a></li>
+                        <li><a href="">Privacy Policy</a></li>
+                        <li><a href="">Booking Guide</a></li>
+                        <li><a href="">Frequently Asked Questions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4 style="margin-left: 30px;">Customer</h4>
+                    <ul>
+                        <li><a href="">Customer login</a></li>
+                        <li><a href="">Look up booking information</a></li>
+                        <li><a href="">Account</a></li>
+                        <li><a href="">Send an event</a></li>
+                        <li><a href="">Customer care</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="social-links">
+                        <a href=""><i class="bi bi-facebook"></i></a>
+                        <a href=""><i class="bi bi-github"></i></a>
+                        <a href=""><i class="bi bi-twitter"></i></i></a>
+                        <a href=""><i class="bi bi-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript code for slideshow (similar to the previous example) can be added here -->
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
+
+
+</html>
