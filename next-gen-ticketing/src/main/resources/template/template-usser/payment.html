@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link  rel="stylesheet" href="/TTTN2024/next-gen-ticketing/src/main/resources/Static/css_user/payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        /* Thêm phần style cần thiết */
+        .form {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">
+            <h4>Select a <span style="color: #6064b6">Payment</span> method</h4>
+        </div>
+
+        <form action="#">
+            <input type="radio" name="payment" id="visa" onclick="showForm('visaForm')">
+            <input type="radio" name="payment" id="solana" onclick="showForm('solanaForm')">
+
+            <div class="category">
+                <label for="visa" class="visaMethod">
+                    <div class="imgName">
+                        <div class="imgContainer visa">
+                            <img src="https://i.ibb.co/vjQCN4y/Visa-Card.png" alt="">
+                        </div>
+                        <span class="name">VISA</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+                <label for="solana" class="solanaMethod">
+                    <div class="imgName">
+                        <div class="imgContainer solana">
+                            <img src="/TTTN2024/next-gen-ticketing/src/main/resources/Static/img/solana.png" alt="">
+                        </div>
+                        <span class="name">Solana</span>
+                    </div>
+                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+                </label>
+            </div>
+        </form>
+
+        <!-- Thêm các form cho từng phương thức thanh toán -->
+        <div id="visaForm" class="form">
+            <!-- Nội dung form VISA -->
+            <div class="card">
+                <!-- ... Nội dung form ... -->
+                <input class="input" name="number" placeholder="Card Number" type="text">
+                <input class="input" name="date" placeholder="Expiration Date" type="date">
+                <input class="input" name="text" placeholder="Full Name" type="text">
+                <input class="input" name="number" placeholder="CVV" type="texxt">
+                <div class="btn-visa">
+                    <button>Submit</button>
+                </div>
+            </div>
+        </div>
+        <div id="solanaForm" class="form">
+            <!-- Nội dung form Solana -->
+            <div class="form-title">Solana Form</div>
+            <!-- ... Nội dung form ... -->
+        </div>
+    </div>
+
+    <script>
+        function showForm(formId) {
+            // Ẩn tất cả các form
+            var allForms = document.querySelectorAll('.form');
+            allForms.forEach(function (form) {
+                form.style.display = 'none';
+            });
+
+            // Hiển thị form tương ứng với phương thức thanh toán được chọn
+            var selectedForm = document.getElementById(formId);
+            if (selectedForm) {
+                selectedForm.style.display = 'block';
+            }
+
+            // Nếu là Solana, thực hiện kết nối và hiển thị form
+            if (formId === 'solanaForm') {
+                connectWallet();
+            }
+        }
+
+        const connectWallet = async () => {
+            await window.phantom.solana.connect();
+
+            let publicKey = window.phantom.solana.publicKey.toBase58();
+            console.log(publicKey);
+        }
+    </script>
+</body>
+
+</html>

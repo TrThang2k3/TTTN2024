@@ -1,0 +1,243 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+nav {
+    background-color: #FFFFFF;
+    /* padding: 10px; */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    float: left;
+    font-size: 1.5em;
+    margin-left: 20px;
+    margin-top: 15px;
+    font-weight: 600;
+    color: green;
+    font-family: 'Open Sans', sans-serif;
+    margin-bottom: 15px;
+}
+
+strong {
+    color: black;
+}
+
+.menu {
+    text-align: center;
+    margin-right: 10%;
+    margin-top: 10px;
+}
+
+.menu a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-top: 5px;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.menu a:hover {
+    color: green;
+}
+
+.dropbtn {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.user-dropdown {
+    position: absolute;
+    display: inline-block;
+    margin-left: 75%;
+    margin-top: -50px;
+}
+
+.user-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-dropdown-content li {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown-content i {
+    margin-right: 8px;
+}
+
+.user-dropdown-content a {
+    color: black;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+.user-pic {
+    width: 70px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: #DDDDDD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropbtn i {
+    font-size: 25px;
+}
+
+header {
+    background-color: #FFFFFF;
+    padding: 20px;
+    text-align: left;
+    
+    height: 700px;
+    position: relative;
+}
+
+.img-header img{
+    width: 100%;
+    height: auto;
+}
+
+.form-contact {
+    position: absolute;
+    margin-top: -45%;
+    margin-left: 55%;
+}
+
+.form-contact form {
+    background-color: #f9f9f9;
+    padding: 50px;
+    border-radius: 8px;
+    background-color: rgba(249, 249, 249, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 550px;
+
+}
+
+.form-contact label{
+    text-transform: uppercase;
+}
+
+.form-contact input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.form-contact button {
+    background-color: #337357;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 450px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.form-contact button:hover{
+    background-color: #337357dc;
+}
+
+.footer {
+    background-color: #24262b;
+    padding: 70px 0px;
+    margin-top: 200px;
+}
+
+.rowft {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container-ft {
+    max-width: 1170px;
+    margin: auto;
+    color: white;
+}
+
+ul {
+    list-style: none;
+}
+
+.footer-col {
+    width: 25%;
+    padding: 0 15px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #ffffff;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+    padding-left: 10px;
+}
+
+.footer-col .social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(255, 255, 255, 0.2);
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.footer-col .social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
