@@ -35,6 +35,7 @@ public class Account implements Serializable{
 	private Integer id;
 	private String firstName;
 	private String lastName;
+	private String password;
 	private String email;
 	private String phone;
 	@Temporal(TemporalType.DATE)
@@ -42,6 +43,7 @@ public class Account implements Serializable{
 	private String walletAddress;
 	private Float balance = 0f;
 	private Boolean isPublisher = false;
+	private Boolean isAministrator = false;
 	private Boolean isActive = true;
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")
