@@ -93,10 +93,6 @@ strong {
     display: block;
 }
 
-.user-dropdown-content a:hover {
-    background-color: #ddd;
-}
-
 .user-dropdown:hover .user-dropdown-content {
     display: block;
 }
