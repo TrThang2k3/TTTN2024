@@ -1,290 +1,219 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout with Nav, Aside, Content, and Footer</title>
-    <link rel="stylesheet" th:href="@{/css_user/ticket.css}">
-    <link rel="stylesheet"
-          th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
-    <link rel="stylesheet"
-          th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css}">
-    <link th:href="@{https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash}"
-          rel="stylesheet">
-    <link rel="stylesheet"
-          th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Layout with Nav, Aside, Content, and Footer</title>
+<link rel="stylesheet" th:href="@{/css_user/ticket.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css}">
+<link
+	th:href="@{https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash}"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
 </head>
 
 <body>
-<!-- <nav>
-    <div class="logo">
-        <span><strong>Bus</strong>Ticket</span>
-    </div>
-    <div class="menu">
-        <a href="home.html">Home</a> <a href="ticket.html">Shop</a> <a
-                href="#">Services</a> <a href="contact.html">Contact</a>
-    </div>
-    <div class="user-menu">
 
-        <div class="user-dropdown">
-            <button class="dropbtn">
-                <div class="user-pic">
-                    <i class="bi bi-person-circle"></i>
-                </div>
-            </button>
-            <ul class="user-dropdown-content">
-                <li><i class="bi bi-person"></i><a th:href="@{/profile}">Profile</a></li>
-                <li><i class="bi bi-gear"></i><a href="#"> Settings</a></li>
-                <li><i class="bi bi-box-arrow-right"></i><a href="#">
-                    Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav> -->
+	<div th:replace="/template-usser/layout/nav.html :: nav"></div>
+	<div class="container1">
+		<aside class="sidebar">
+			<h2>GENRE</h2>
+			<div class="checkbox-container">
+				<label for="checkbox1" class="checkbox-label"> <input
+					type="checkbox" id="checkbox1" class="styled-checkbox">Monthly
+					pass
+				</label> <label for="checkbox2" class="checkbox-label"> <input
+					type="checkbox" id="checkbox2" class="styled-checkbox">Practice
+					tickets
+				</label>
+			</div>
+		</aside>
 
-<div th:replace="/template-usser/layout/nav.html :: nav"></div>
-<div class="container1">
-    <aside class="sidebar">
-        <h2>GENRE</h2>
-        <div class="checkbox-container">
-            <label for="checkbox1" class="checkbox-label"> <input
-                    type="checkbox" id="checkbox1" class="styled-checkbox">Monthly
-                pass
-            </label> <label for="checkbox2" class="checkbox-label"> <input
-                    type="checkbox" id="checkbox2" class="styled-checkbox">Practice
-                tickets
-            </label>
-        </div>
-    </aside>
+		<main class="main-content">
+			<div class="row2">
+				<!-- Button triggering the modal -->
+				<button type="button" data-bs-toggle="modal"
+					data-bs-target="#franchisingModal">Franchising</button>
+			</div>
+			<section>
+				<div class="products">
+					<div class="card">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
+							alt="...">
+						<div class="card-body">
+							<p class="event">Bus Ticket</p>
+							<h2 class="title">Quận Bình Thạnh</h2>
+							<div class="address">
+								<div class="icon">
+									<i class="fa fa-table"></i>
+								</div>
+								<p>
+									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+								</p>
+							</div>
 
-    <main class="main-content">
-        <div class="row2">
-            <!-- Button triggering the modal -->
-            <button type="button" data-bs-toggle="modal"
-                    data-bs-target="#franchisingModal">Franchising</button>
-        </div>
-        <section>
-            <div class="products">
-                <div class="card">
-                    <img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-                         alt="...">
-                    <div class="card-body">
-                        <p class="event">Bus Ticket</p>
-                        <h2 class="title">Quận Bình Thạnh</h2>
-                        <div class="address">
-                            <div class="icon">
-                                <i class="fa fa-table"></i>
-                            </div>
-                            <p>
-                                Monday 15th 2016 <br/> 15:20Pm & 11:00Am
-                            </p>
-                        </div>
+							<div class="loc">
+								<div class="icon">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								<p>
+									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+								</p>
+							</div>
+							<button class="tickets">Sell</button>
+						</div>
+					</div>
+					<div class="card">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
+							alt="...">
+						<div class="card-body">
+							<p class="event">Bus Ticket</p>
+							<h2 class="title">Quận Bình Thạnh</h2>
+							<div class="address">
+								<div class="icon">
+									<i class="fa fa-table"></i>
+								</div>
+								<p>
+									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+								</p>
+							</div>
 
-                        <div class="loc">
-                            <div class="icon">
-                                <i class="fa fa-map-marker"></i>
-                            </div>
-                            <p>
-                                167 Bạch Đằng Phường 15<br/> Quận Bình Thạnh TP.Hồ Chí Minh
-                            </p>
-                        </div>
-                        <button class="tickets">Sell</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-                         alt="...">
-                    <div class="card-body">
-                        <p class="event">Bus Ticket</p>
-                        <h2 class="title">Quận Bình Thạnh</h2>
-                        <div class="address">
-                            <div class="icon">
-                                <i class="fa fa-table"></i>
-                            </div>
-                            <p>
-                                Monday 15th 2016 <br/> 15:20Pm & 11:00Am
-                            </p>
-                        </div>
+							<div class="loc">
+								<div class="icon">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								<p>
+									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+								</p>
+							</div>
+							<button class="tickets">Sell</button>
+						</div>
+					</div>
+					<div class="card">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
+							alt="...">
+						<div class="card-body">
+							<p class="event">Bus Ticket</p>
+							<h2 class="title">Quận Bình Thạnh</h2>
+							<div class="address">
+								<div class="icon">
+									<i class="fa fa-table"></i>
+								</div>
+								<p>
+									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+								</p>
+							</div>
 
-                        <div class="loc">
-                            <div class="icon">
-                                <i class="fa fa-map-marker"></i>
-                            </div>
-                            <p>
-                                167 Bạch Đằng Phường 15<br/> Quận Bình Thạnh TP.Hồ Chí Minh
-                            </p>
-                        </div>
-                        <button class="tickets">Sell</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-                         alt="...">
-                    <div class="card-body">
-                        <p class="event">Bus Ticket</p>
-                        <h2 class="title">Quận Bình Thạnh</h2>
-                        <div class="address">
-                            <div class="icon">
-                                <i class="fa fa-table"></i>
-                            </div>
-                            <p>
-                                Monday 15th 2016 <br/> 15:20Pm & 11:00Am
-                            </p>
-                        </div>
+							<div class="loc">
+								<div class="icon">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								<p>
+									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+								</p>
+							</div>
+							<button class="tickets">Sell</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!--Modal-->
+			<div class="modal fade" id="franchisingModal" tabindex="-1"
+				aria-labelledby="franchisingModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content">
+						<!-- Modal content... -->
+						<div class="card">
+							<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
+								alt="...">
+							<div class="card-body">
+								<p class="event">Bus Ticket</p>
+								<h2 class="title">Quận Bình Thạnh</h2>
+								<div class="address">
+									<div class="icon">
+										<i class="fa fa-table"></i>
+									</div>
+									<p>
+										Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+									</p>
+								</div>
 
-                        <div class="loc">
-                            <div class="icon">
-                                <i class="fa fa-map-marker"></i>
-                            </div>
-                            <p>
-                                167 Bạch Đằng Phường 15<br/> Quận Bình Thạnh TP.Hồ Chí Minh
-                            </p>
-                        </div>
-                        <button class="tickets">Sell</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--Modal-->
-        <div class="modal fade" id="franchisingModal" tabindex="-1"
-             aria-labelledby="franchisingModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <!-- Modal content... -->
-                    <div class="card">
-                        <img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-                             alt="...">
-                        <div class="card-body">
-                            <p class="event">Bus Ticket</p>
-                            <h2 class="title">Quận Bình Thạnh</h2>
-                            <div class="address">
-                                <div class="icon">
-                                    <i class="fa fa-table"></i>
-                                </div>
-                                <p>
-                                    Monday 15th 2016 <br/> 15:20Pm & 11:00Am
-                                </p>
-                            </div>
+								<div class="loc">
+									<div class="icon">
+										<i class="fa fa-map-marker"></i>
+									</div>
+									<p>
+										167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+									</p>
+								</div>
+								<button class="tickets" data-bs-toggle="modal"
+									data-bs-target="#sellModal">Sell</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="sellModal" tabindex="-1"
+				aria-labelledby="sellModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content">
+						<!-- Modal content... -->
+						<div class="modal-header">
+							<h5 class="modal-title" id="sellModalLabel">Sell Modal</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="card">
+								<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
+								alt="...">
+								<div class="card-body">
+									<p class="event">Bus Ticket</p>
+									<h2 class="title">Quận Bình Thạnh</h2>
+									<div class="address">
+										<div class="icon">
+											<i class="fa fa-table"></i>
+										</div>
+										<p>
+											Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+										</p>
+									</div>
 
-                            <div class="loc">
-                                <div class="icon">
-                                    <i class="fa fa-map-marker"></i>
-                                </div>
-                                <p>
-                                    167 Bạch Đằng Phường 15<br/> Quận Bình Thạnh TP.Hồ Chí Minh
-                                </p>
-                            </div>
-                            <button class="tickets" data-bs-toggle="modal"
-                                    data-bs-target="#sellModal">Sell</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="sellModal" tabindex="-1"
-             aria-labelledby="sellModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <!-- Modal content... -->
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="sellModalLabel">Sell Modal</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="card">
-                            <img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-                                 alt="...">
-                            <div class="card-body">
-                                <p class="event">Bus Ticket</p>
-                                <h2 class="title">Quận Bình Thạnh</h2>
-                                <div class="address">
-                                    <div class="icon">
-                                        <i class="fa fa-table"></i>
-                                    </div>
-                                    <p>
-                                        Monday 15th 2016 <br/> 15:20Pm & 11:00Am
-                                    </p>
-                                </div>
+									<div class="loc">
+										<div class="icon">
+											<i class="fa fa-map-marker"></i>
+										</div>
+										<p>
+											167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+										</p>
+									</div>
 
-                                <div class="loc">
-                                    <div class="icon">
-                                        <i class="fa fa-map-marker"></i>
-                                    </div>
-                                    <p>
-                                        167 Bạch Đằng Phường 15<br/> Quận Bình Thạnh TP.Hồ Chí Minh
-                                    </p>
-                                </div>
-
-                                <div class="input-group">
-                                    <input type="text" placeholder="Enter price">
-                                    <div></div>
-                                </div>
-                                <button class="tickets" data-bs-toggle="modal"
-                                        data-bs-target="#sellModal">Sell</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-<!-- <footer class="footer">
-    <div class="container-ft">
-        <div class="rowft">
-            <div class="footer-col">
-                <h4 style="margin-left: 30px;">Contact Partners</h4>
-                <ul>
-                    <li><a href="">Phone: 0564.895.123</a></li>
-                    <li><a href="">Hotline: 096.423.568</a></li>
-                    <li><a href="">Email: NGTicketBus@gmail.com</a></li>
-                    <li><a href="">Address: Quang Trung Software Park</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 style="margin-left: 30px;">Information</h4>
-                <ul>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Promotion</a></li>
-                    <li><a href="">Payment methods</a></li>
-                    <li><a href="">Privacy Policy</a></li>
-                    <li><a href="">Booking Guide</a></li>
-                    <li><a href="">Frequently Asked Questions</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4 style="margin-left: 30px;">Customer</h4>
-                <ul>
-                    <li><a href="">Customer login</a></li>
-                    <li><a href="">Look up booking information</a></li>
-                    <li><a href="">Account</a></li>
-                    <li><a href="">Send an event</a></li>
-                    <li><a href="">Customer care</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Contact</h4>
-                <div class="social-links">
-                    <a href=""><i class="bi bi-facebook"></i></a> <a href=""><i
-                            class="bi bi-github"></i></a> <a href=""><i class="bi bi-twitter"></i></i></a>
-                    <a href=""><i class="bi bi-discord"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer> -->
-<div th:replace="/template-usser/layout/footer.html :: footer"></div>
+									<div class="input-group">
+										<input type="text" placeholder="Enter price">
+										<div></div>
+									</div>
+									<button class="tickets" data-bs-toggle="modal"
+										data-bs-target="#sellModal">Sell</button>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<div th:replace="/template-usser/layout/footer.html :: footer"></div>
 </body>
 <script
-        th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+	th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
 
 </html>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class usercontroller {
 	@GetMapping("path")
 	public String index() {
-		return "/template-usser/publisher";
+		return "/template-usser/ticket";
 	}
 	
 }
