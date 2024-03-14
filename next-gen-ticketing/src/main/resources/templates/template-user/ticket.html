@@ -1,34 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layout with Nav, Aside, Content, and Footer</title>
-<link rel="stylesheet" th:href="@{/css_user/ticket.css}">
-<link rel="stylesheet"
-	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}">
-<link rel="stylesheet"
-	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css}">
-<link
-	th:href="@{https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash}"
-	rel="stylesheet">
-<link rel="stylesheet"
-	th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ticket gallery</title>
 </head>
 
 <body>
-
-	<div th:replace="/template-usser/layout/nav.html :: nav"></div>
 	<div class="container1">
 		<aside class="sidebar">
 			<h2>GENRE</h2>
 			<div class="checkbox-container">
-				<label for="checkbox1" class="checkbox-label"> <input
-					type="checkbox" id="checkbox1" class="styled-checkbox">Monthly
+				<label for="checkbox1" class="checkbox-label"> <input type="checkbox" id="checkbox1"
+						class="styled-checkbox">Monthly
 					pass
-				</label> <label for="checkbox2" class="checkbox-label"> <input
-					type="checkbox" id="checkbox2" class="styled-checkbox">Practice
+				</label> <label for="checkbox2" class="checkbox-label"> <input type="checkbox" id="checkbox2"
+						class="styled-checkbox">Practice
 					tickets
 				</label>
 			</div>
@@ -37,14 +25,12 @@
 		<main class="main-content">
 			<div class="row2">
 				<!-- Button triggering the modal -->
-				<button type="button" data-bs-toggle="modal"
-					data-bs-target="#franchisingModal">Franchising</button>
+				<button type="button" data-bs-toggle="modal" data-bs-target="#franchisingModal">Franchising</button>
 			</div>
 			<section>
 				<div class="products">
 					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-							alt="...">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
 						<div class="card-body">
 							<p class="event">Bus Ticket</p>
 							<h2 class="title">Quận Bình Thạnh</h2>
@@ -69,8 +55,7 @@
 						</div>
 					</div>
 					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-							alt="...">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
 						<div class="card-body">
 							<p class="event">Bus Ticket</p>
 							<h2 class="title">Quận Bình Thạnh</h2>
@@ -95,8 +80,7 @@
 						</div>
 					</div>
 					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-							alt="...">
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
 						<div class="card-body">
 							<p class="event">Bus Ticket</p>
 							<h2 class="title">Quận Bình Thạnh</h2>
@@ -123,14 +107,13 @@
 				</div>
 			</section>
 			<!--Modal-->
-			<div class="modal fade" id="franchisingModal" tabindex="-1"
-				aria-labelledby="franchisingModalLabel" aria-hidden="true">
+			<div class="modal fade" id="franchisingModal" tabindex="-1" aria-labelledby="franchisingModalLabel"
+				aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
 						<!-- Modal content... -->
 						<div class="card">
-							<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-								alt="...">
+							<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
 							<div class="card-body">
 								<p class="event">Bus Ticket</p>
 								<h2 class="title">Quận Bình Thạnh</h2>
@@ -151,27 +134,23 @@
 										167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
 									</p>
 								</div>
-								<button class="tickets" data-bs-toggle="modal"
-									data-bs-target="#sellModal">Sell</button>
+								<button class="tickets" data-bs-toggle="modal" data-bs-target="#sellModal">Sell</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="sellModal" tabindex="-1"
-				aria-labelledby="sellModalLabel" aria-hidden="true">
+			<div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
 						<!-- Modal content... -->
 						<div class="modal-header">
 							<h5 class="modal-title" id="sellModalLabel">Sell Modal</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
 							<div class="card">
-								<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top"
-								alt="...">
+								<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
 								<div class="card-body">
 									<p class="event">Bus Ticket</p>
 									<h2 class="title">Quận Bình Thạnh</h2>
@@ -203,17 +182,13 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-bs-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</main>
 	</div>
-	<div th:replace="/template-usser/layout/footer.html :: footer"></div>
 </body>
-<script
-	th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
 
 </html>

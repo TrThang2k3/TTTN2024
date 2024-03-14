@@ -20,16 +20,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"RoleName", "AccountID"})})
+@Table(name = "Authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"rolename", "accountid"})})
 public class Authority implements Serializable{
 	@Id
-	@Column(name = "AuthorityID")
+	@Column(name = "authorityid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
-	@JoinColumn(name = "AccountID")
+	@JoinColumn(name = "accountid")
 	private Account account;
 	@ManyToOne
-	@JoinColumn(name = "RoleName")
+	@JoinColumn(name = "rolename")
 	private Role role;
 }

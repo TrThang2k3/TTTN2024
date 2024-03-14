@@ -25,19 +25,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "Invoices")
 public class Invoice implements Serializable{
 	@Id
-	@Column(name = "InvoiceID")
+	@Column(name = "invoiceid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name = "SellerID")
+	@JoinColumn(name = "sellerid")
 	private Account seller;
 	@ManyToOne()
-	@JoinColumn(name = "BuyerID")
+	@JoinColumn(name = "buyerid")
 	private Account buyer;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "invoicedate")
 	private Date invoiceDate;
 	@ManyToOne
-	@JoinColumn(name = "NFTID")
+	@JoinColumn(name = "nftid")
 	private Nft nft;
 	private Float amount;
 	private String payment;

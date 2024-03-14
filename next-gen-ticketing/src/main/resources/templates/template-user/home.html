@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css_user/home.css}">
-    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css}" rel="stylesheet">
-    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide.min.css}">
+    <title>Homepage</title>
 </head>
 
 <body>
-	<div th:replace="~{'template-usser/layout/navhome.html'}"></div>
-
 	<!-- Header -->
 	<header>
         <div class="img-header">
@@ -30,7 +25,6 @@
             </div>
         </div>
     </header>
-
 
 	<div class="container-fluid">
 		<!-- Section 3: Two Columns with Cards -->
@@ -102,14 +96,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Footer -->
-	<div th:replace="~{'template-usser/layout/footer.html'}"></div>
-	<!-- JavaScript code for slideshow (similar to the previous example) can be added here -->
-
 </body>
 
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
 </html>

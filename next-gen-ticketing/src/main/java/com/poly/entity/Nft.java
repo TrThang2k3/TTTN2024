@@ -27,20 +27,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "NFTs", uniqueConstraints = {@UniqueConstraint(columnNames = "NFTAddress")})
+@Table(name = "Nfts", uniqueConstraints = {@UniqueConstraint(columnNames = "nftaddress")})
 public class Nft implements Serializable{
 	@Id
-	@Column(name = "NFTID")
+	@Column(name = "nftid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "nftaddress")
 	private String nftAddress;
 	@ManyToOne()
-	@JoinColumn(name = "AccountID")
+	@JoinColumn(name = "accountid")
 	private Account account;
 	@ManyToOne()
-	@JoinColumn(name = "TicketID")
+	@JoinColumn(name = "ticketid")
 	private Ticket ticket;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "createdate")
 	private Date createDate;
 	@JsonIgnore
 	@OneToMany(mappedBy = "nft")

@@ -24,19 +24,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Publishers", uniqueConstraints = {@UniqueConstraint(columnNames = "AccountID")})
+@Table(name = "Publishers", uniqueConstraints = {@UniqueConstraint(columnNames = "accountid")})
 public class Publisher implements Serializable{
 	@Id
-	@Column(name = "PublisherID")
+	@Column(name = "publisherid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@OneToOne()
-	@JoinColumn(name = "AccountID")
+	@JoinColumn(name = "accountid")
 	private Account account;
-	@Column(name = "PublisherName")
+	@Column(name = "publishername")
 	private String name;
 	private String description;
 	private String address;
+	@Column(name = "isactive")
 	private Boolean isActive = true;
 	@JsonIgnore
 	@OneToMany(mappedBy = "publisher")

@@ -34,7 +34,9 @@ public class UserServiceImplement implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		try {
+			System.out.println(email);
 			Account account = accountService.findByEmail(email);
+			System.out.println(account.getLastName());
 			// Tạo UserDetails từ Account
 			String password = pe.encode(account.getPassword());
 			String[] roles = authorityService.findByAccount(account).stream().map(au -> au.getRole().getName())

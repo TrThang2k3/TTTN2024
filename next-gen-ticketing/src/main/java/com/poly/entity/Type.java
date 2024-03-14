@@ -21,13 +21,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "TicketTypes")
+@Table(name = "Tickettypes")
 public class Type implements Serializable{
 	@Id
-	@Column(name = "TicketID")
+	@Column(name = "ticketid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "TypeName")
+	@Column(name = "typename")
 	private String name;
 	@JsonIgnore
 	@OneToMany(mappedBy = "type")

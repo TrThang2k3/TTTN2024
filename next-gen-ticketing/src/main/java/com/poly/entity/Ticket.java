@@ -26,22 +26,23 @@ import lombok.NoArgsConstructor;
 @Table(name = "Tickets")
 public class Ticket implements Serializable{
 	@Id
-	@Column(name = "TicketID")
+	@Column(name = "ticketid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "TicketName")
+	@Column(name = "ticketname")
 	private String name;
 	@ManyToOne()
-	@JoinColumn(name = "PublisherID")
+	@JoinColumn(name = "publisherid")
 	private Publisher publisher;
-	@Column(name = "TicketImage")
+	@Column(name = "ticketimage")
 	private String image;
 	private Float price;
 	@ManyToOne()
-	@JoinColumn(name = "TypeID")
+	@JoinColumn(name = "typeid")
 	private Type type;
 	private Integer shelftime;
 	private String description;
+	@Column(name = "isactive")
 	private Boolean isActive = true;
 	@JsonIgnore
 	@OneToMany(mappedBy = "ticket")

@@ -30,20 +30,27 @@ import lombok.NoArgsConstructor;
 @Table(name = "Accounts", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class Account implements Serializable{
 	@Id
-	@Column(name = "AccountID")
+	@Column(name = "accountid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "firstname")
 	private String firstName;
+	@Column(name = "lastname")
 	private String lastName;
 	private String password;
 	private String email;
 	private String phone;
 	@Temporal(TemporalType.DATE)
+	@Column(name = "dayofbirth")
 	private Date dayOfBirth;
+	@Column(name = "walletaddress")
 	private String walletAddress;
 	private Float balance = 0f;
+	@Column(name = "ispublisher")
 	private Boolean isPublisher = false;
-	private Boolean isAministrator = false;
+	@Column(name = "isadministrator")
+	private Boolean isAdministrator = false;
+	@Column(name = "isactive")
 	private Boolean isActive = true;
 	@JsonIgnore
 	@OneToMany(mappedBy = "account")

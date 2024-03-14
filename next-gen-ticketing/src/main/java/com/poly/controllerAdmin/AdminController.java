@@ -1,5 +1,5 @@
 package com.poly.controllerAdmin;
 
-public class Admincontroller {
+public class AdminController {
 
 }

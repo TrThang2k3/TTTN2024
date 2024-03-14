@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Roles")
 public class Role implements Serializable{
 	@Id
-	@Column(name = "RoleName")
+	@Column(name = "rolename")
 	private String name;
 	private String description;
 	@JsonIgnore

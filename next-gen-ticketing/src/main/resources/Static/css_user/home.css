@@ -62,17 +62,27 @@ strong {
     margin-left: 75%;
 }
 
-.btn-login button {
+.btn-login {
     background-color: #337357;
     width: 70px;
     height: 35px;
     border: none;
     border-radius: 10px;
+    text-align: center;
+}
+
+.btn-login:hover {
+    background-color: #479d78;
+}
+
+.btn-login a {
+	text-decoration: none;
+	line-height: 30px;
     color: #FFFFFF;
 }
 
-.btn-login button:hover {
-    background-color: #479d78;
+.btn-login a:hover {
+    color: #FFFFFF;
 }
 
 /*dropdow ngon ngu*/

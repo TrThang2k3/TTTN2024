@@ -15,20 +15,20 @@ import com.poly.util.service.implement.UserServiceImplement;
 public class AuthenticationConfiguration {
 	@Autowired
 	UserServiceImplement userService;
+
 	/* Quản lý dữ liệu người sử dụng */
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService);
 	}
-	
+
 	@Bean
-	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// CSRF, CORS
-		http.csrf(csrf -> csrf.disable())
-			.cors(cors -> cors.disable());
+		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.disable());
 		// Phân quyền sử dụng
-		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/nextgen.com/account/**").authenticated()
-				.anyRequest().permitAll() // anonymous
+		http.authorizeHttpRequests(
+				auth -> auth.requestMatchers("/nextgen.com/account/**").authenticated()
+							.anyRequest().permitAll() // anonymous
 		);
 
 		// Điều khiển lỗi truy cập không đúng role
@@ -39,14 +39,12 @@ public class AuthenticationConfiguration {
 				.loginProcessingUrl("/login")
 				.defaultSuccessUrl("/nextgen.com/login/success", false)
 				.failureUrl("/nextgen.com/login/error")
-				.usernameParameter("username")
-				.passwordParameter("password") 
-		);
-		http.rememberMe((remember) -> remember.rememberMeParameter("remember"));
+				.usernameParameter("email").passwordParameter("password"));
+		http.rememberMe((remember) -> remember.rememberMeParameter("agree"));
 
 		// Đăng xuất
 		http.logout((logout) -> logout.logoutUrl("/nextgen.com/account/logout")
-				.logoutSuccessUrl("/nextgen.com/logout/success"));
+				.logoutSuccessUrl("/aliyah.com/logout/success"));
 
 		return http.build();
 	}
