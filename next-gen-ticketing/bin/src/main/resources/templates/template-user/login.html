@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Signin</title>
+</head>
+
+<body>
+	<div class="mt-5 pt-5 w-50 mx-auto">
+		<h5 class="text-center">Sign In</h5>
+		<div th:if="${message}" th:text="${message}" class="alert alert-warning my-3"></div>
+		<form class="login-form" method="post" action="/login">
+			<input type="email" id="email" name="email" required placeholder="Email">
+			<input type="password" id="password" name="password" required placeholder="Password">
+			<div class="checkbox">
+				<input type="checkbox" id="agree" name="agree">
+				<label for="agree">Remember passwords</label>
+				<a href="#">Forgot password ?</a>
+			</div>
+			<button type="submit" class="btn btn-primary">Sign in</button>
+			<hr>
+			<div class="social-login">
+				<button class="twitter-login">
+					<i class="bi bi-twitter-x"></i>Sign in with Twitter
+				</button>
+			</div>
+			<div class="social-login">
+				<button class="google-login">
+					<i class="bi bi-google"></i>Sign in with Google
+				</button>
+			</div>
+			<div class="register">
+				<p>
+					You don't have an account ? <strong><a href="/nextgen.com/signup">Sign up</a></strong>
+				</p>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
