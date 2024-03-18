@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Signup</title>
+</head>
+
+<body>
+	<div class="mt-5 pt-5 w-50 mx-auto">
+		<h5 class="text-center">Sign Up</h5>
+		<form action="/nextgen.com/register" method="post" th:object="${account}">
+			<input class="form-control mb-3" type="text" th:field="*{firstName}" required placeholder="Firstname">
+			<input class="form-control mb-3" type="text" th:field="*{lastName}" required placeholder="Lastname">
+			<input class="form-control mb-3" type="email" th:field="*{email}" required placeholder="Email">
+			<input class="form-control mb-3" type="password" id="password" th:field="*{password}" required placeholder="Password">
+			<input class="form-control mb-3" type="password" id="confirm-password" name="confirm-password" required
+				placeholder="Confirm password">
+			<div class="checkbox">
+				<input class="my-auto" type="checkbox" id="agree" name="agree" required>
+				<label for="agree" class="my-auto">
+					I agree with the<strong> policies and conditions of use</strong> services of the Website
+				</label>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Sign Up</button>
+		</form>
+		<div class="btn-dang_nhap mx-auto">
+			<span>You already have an account <a href="/nextgen.com/login">Sign in</a></span>
+		</div>
+	</div>
+</body>
+
+</html>
