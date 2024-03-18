@@ -11,13 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.poly.DTO.AccountDTO;
 import com.poly.entity.Account;
+import com.poly.entity.Publisher;
+import com.poly.service.AccountService;
+import com.poly.service.PublisherService;
+import com.poly.service.TicketService;
 import com.poly.util.service.SessionService;
 
 @Controller
 public class UserController {
 	@Autowired
 	SessionService sessionService;
+	@Autowired
+	AccountService accountService;
+	@Autowired
+	PublisherService publisherService;
+	@Autowired
+	TicketService ticketService;
 	
 	@GetMapping({"/nextgen.com", "/nextgen.com/home"})
 	public String index() {
@@ -25,12 +36,24 @@ public class UserController {
 	}
 	
 	@GetMapping("/nextgen.com/ticket-gallery")
-	public String ticket() {
+	public String ticket(Model model) {
+		model.addAttribute("tickets", ticketService.findAll());
 		return "/template-user/ticket";
 	}
 	
 	@GetMapping("/nextgen.com/account/profile")
-	public String profile() {
+	public String profile(Model model) {
+		Account account = accountService.findById(getLogAcc().getId());
+		model.addAttribute("account", account);
+		
+		AccountDTO dto = new AccountDTO();
+		dto.setId(account.getId());
+		dto.setFirstName(account.getFirstName());
+		dto.setLastName(account.getLastName());
+		dto.setEmail(account.getEmail());
+		dto.setPhone(account.getPhone());		
+		model.addAttribute("accountDto", dto);
+		
 		return "/template-user/profile";
 	}
 	

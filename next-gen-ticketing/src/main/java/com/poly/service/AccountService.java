@@ -18,4 +18,6 @@ public interface AccountService {
 	void deleteById(Integer id);
 	
 	Boolean existByEmail(String email);
+
+	Account update(Integer id, String walletAddress);
 }

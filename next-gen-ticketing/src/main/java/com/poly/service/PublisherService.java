@@ -2,6 +2,7 @@ package com.poly.service;
 
 import java.util.List;
 
+import com.poly.entity.Account;
 import com.poly.entity.Publisher;
 
 public interface PublisherService {
@@ -14,4 +15,6 @@ public interface PublisherService {
 	Publisher update(Publisher publisher);
 	
 	void deleteById(Integer id);
+
+	Publisher findByAccount(Account account);
 }

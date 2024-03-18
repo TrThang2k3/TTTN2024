@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Tickettypes")
 public class Type implements Serializable{
 	@Id
-	@Column(name = "ticketid")
+	@Column(name = "typeid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "typename")

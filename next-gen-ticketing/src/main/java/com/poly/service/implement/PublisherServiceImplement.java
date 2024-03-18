@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.poly.entity.Account;
 import com.poly.entity.Publisher;
 import com.poly.repository.PublisherDAO;
 import com.poly.service.PublisherService;
@@ -37,6 +38,11 @@ public class PublisherServiceImplement implements PublisherService{
 	@Override
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
+	}
+
+	@Override
+	public Publisher findByAccount(Account account) {
+		return dao.findByAccount(account);
 	}
 
 }

@@ -55,4 +55,11 @@ public class AccountServiceImplement implements AccountService{
 		return dao.existsByEmail(email);
 	}
 
+	@Override
+	public Account update(Integer id, String walletAddress) {
+		Account account = dao.findById(id).get();
+		account.setWalletAddress(walletAddress);
+		return dao.save(account);
+	}
+
 }

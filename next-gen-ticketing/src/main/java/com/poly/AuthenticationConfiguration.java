@@ -44,7 +44,7 @@ public class AuthenticationConfiguration {
 
 		// Đăng xuất
 		http.logout((logout) -> logout.logoutUrl("/nextgen.com/account/logout")
-				.logoutSuccessUrl("/aliyah.com/logout/success"));
+				.logoutSuccessUrl("/nextgen.com/logout/success"));
 
 		return http.build();
 	}
