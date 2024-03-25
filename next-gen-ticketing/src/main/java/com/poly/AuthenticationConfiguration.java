@@ -28,6 +28,7 @@ public class AuthenticationConfiguration {
 		// Phân quyền sử dụng
 		http.authorizeHttpRequests(
 				auth -> auth.requestMatchers("/nextgen.com/account/**").authenticated()
+				.requestMatchers("/nextgen.com/publisher").hasRole("Publisher")
 							.anyRequest().permitAll() // anonymous
 		);
 

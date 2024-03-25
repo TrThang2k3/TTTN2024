@@ -30,7 +30,7 @@ public class AuthController {
 		return "forward:/nextgen.com/login";
 	}
 
-	@RequestMapping("auth/access/denied")
+	@RequestMapping("nextgen.com/access/denied")
 	public String access(Model model) {
 		model.addAttribute("message", "Access denied!");
 		return "forward:/nextgen.com/login";
