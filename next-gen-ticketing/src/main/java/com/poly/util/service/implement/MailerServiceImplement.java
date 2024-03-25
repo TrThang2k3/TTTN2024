@@ -19,7 +19,7 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class MailerServiceImplement implements MailerService {
-	@Autowired
+	@Autowired(required = true)
 	JavaMailSender sender;
 
 	List<MailerDTO> list = new ArrayList<>();

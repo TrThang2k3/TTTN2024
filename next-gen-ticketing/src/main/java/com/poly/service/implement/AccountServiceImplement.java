@@ -33,9 +33,9 @@ public class AccountServiceImplement implements AccountService{
 
 	@Override
 	public Account create(Account account) {
-		if (dao.existsById(account.getId())) {
-			throw new RuntimeException("Duplicated primary key");
-		}	
+		if (dao.existsByEmail(account.getEmail())) {
+			throw new RuntimeException("Duplicated by email");
+		}
 		return dao.save(account);
 	}
 	
