@@ -53,4 +53,9 @@ public class InvoiceServiceImplement implements InvoiceService{
 	public List<Invoice> findByBuyer(Account buyer) {
 		return dao.findByBuyer(buyer);
 	}
+
+	@Override
+	public Invoice create(Invoice invoice) {	
+		return dao.save(invoice);
+	}
 }

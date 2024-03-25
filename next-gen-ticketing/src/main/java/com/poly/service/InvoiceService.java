@@ -10,7 +10,9 @@ public interface InvoiceService {
 	List<Invoice> findAll();
 
 	Invoice create(JsonNode invoiceData);
-
+	
+	Invoice create(Invoice invoice);
+	
 	Invoice update(Invoice invoice);
 
 	void deleteById(Integer id);

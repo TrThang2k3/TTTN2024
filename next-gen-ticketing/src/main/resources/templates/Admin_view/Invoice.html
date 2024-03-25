@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout-admin/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+</head>
+<body>
+	<div class="content " id="invoiceContent">
+		<div class="card">
+			<div class="card-body">
+				<h2>Invoice</h2>
+				<div class="form-card">
+					<form id="accountForm" th:object="${invoice}" method="post">
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Publisherid" class="col-form-label">Invoice ID</label> 
+								<input type="text" class="form-control" id="id" th:field="*{id}"></input>
+							</div>
+							<div class="col-sm-6">
+								<label for="Description" class="col-form-label">NFT ID</label>
+								<input type="text" class="form-control" id="nft" th:field="*{nft.id}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Publishername" class="col-form-label">Buyer Email</label> 
+								<select class="form-control" id="selectOption" th:field="*{buyer.id}">
+									<option th:each="account : ${accountList}" th:value="${account.id}"
+										th:text="${account.email}">Option</option>
+								</select>
+							</div>
+							<div class="col-sm-6">
+								<label for="Accountid" class="col-form-label">Seller Email</label>
+								<select class="form-control" id="selectOption" th:field="*{seller.id}">
+									<option th:each="account : ${accountList}" th:value="${account.id}"
+										th:text="${account.email}">Option</option>
+								</select>							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Description" class="col-form-label">Invoice Date</label>
+								<input type="date" class="form-control" id="invoiceDate" th:field="*{invoiceDate}">
+							</div>
+							<div class="col-sm-6">
+								<label for="Address" class="col-form-label">Amount</label> <input
+									type="text" class="form-control" id="amount" th:field="*{amount}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<label for="Address" class="col-form-label">Payment</label> <input
+									type="text" class="form-control" id="payment" th:field="*{payment}">
+							</div>
+						</div>
+						<div class="button-btn">
+							<button type="submit" formaction="/nextgen.com/admin-view-invoice/create" class="btn btn-success">Create</button>
+							<button type="submit" th:formaction="@{/nextgen.com/admin-view-invoice/update/{id}(id=${invoice.id})}" class="btn btn-primary">Upload</button>
+							<button type="submit" th:formaction="@{/nextgen.com/admin-view-invoice/delete/{id}(id=${invoice.id})}" class="btn btn-secondary">Delete</button>
+							<button type="submit" formaction="/nextgen.com/admin-view-invoice/reset" class="btn btn-danger">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card mt-4">
+			<div class="card-body">
+				<h2>Account List</h2>
+				<div class="table-card">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Invoice ID</th>
+									<th>Seller ID</th>
+									<th>Buyer ID</th>
+									<th>Invoice Date</th>
+									<th>NFT ID</th>
+									<th>Amount</th>
+									<th>Payment</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Add table rows with account information here -->
+								<tr th:each="invoice : ${invoices}">
+									<td th:text="${invoice.id}"></td>
+									<td>[[${invoice.seller.firstName}]] [[${invoice.seller.lastName}]]</td>
+									<td>[[${invoice.buyer.firstName}]] [[${invoice.buyer.lastName}]]</td>
+									<td th:text="${invoice.invoiceDate}"></td>
+									<td th:text="${invoice.nft.id}"></td>
+									<td th:text="${invoice.amount}"></td>
+									<td th:text="${invoice.payment}"></td>
+									<td><a th:href="@{/nextgen.com/admin-view-invoice/edit/{id}(id=${invoice.id})}">Edit</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

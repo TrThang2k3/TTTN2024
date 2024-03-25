@@ -29,11 +29,13 @@
 			</div>
 			<section>
 				<div class="products">
-					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
-						<div class="card-body">
-							<p class="event">Bus Ticket</p>
-							<h2 class="title">Quận Bình Thạnh</h2>
+					<div class="card" th:each="t : ${tickets}" th:object="${t}">
+						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..." th:attr="id='ticketImage' + *{id}">
+						<div class="card-body text-dark">
+							<p class="event">[[*{publisher.name}]]</p>
+							<h4 class="title">Hà Nội</h4>
+							<div style="white-space: pre-line;">[[*{description}]]</div>
+							<!--
 							<div class="address">
 								<div class="icon">
 									<i class="fa fa-table"></i>
@@ -51,57 +53,8 @@
 									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
 								</p>
 							</div>
-							<button class="tickets">Sell</button>
-						</div>
-					</div>
-					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
-						<div class="card-body">
-							<p class="event">Bus Ticket</p>
-							<h2 class="title">Quận Bình Thạnh</h2>
-							<div class="address">
-								<div class="icon">
-									<i class="fa fa-table"></i>
-								</div>
-								<p>
-									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
-								</p>
-							</div>
-
-							<div class="loc">
-								<div class="icon">
-									<i class="fa fa-map-marker"></i>
-								</div>
-								<p>
-									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
-								</p>
-							</div>
-							<button class="tickets">Sell</button>
-						</div>
-					</div>
-					<div class="card">
-						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
-						<div class="card-body">
-							<p class="event">Bus Ticket</p>
-							<h2 class="title">Quận Bình Thạnh</h2>
-							<div class="address">
-								<div class="icon">
-									<i class="fa fa-table"></i>
-								</div>
-								<p>
-									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
-								</p>
-							</div>
-
-							<div class="loc">
-								<div class="icon">
-									<i class="fa fa-map-marker"></i>
-								</div>
-								<p>
-									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
-								</p>
-							</div>
-							<button class="tickets">Sell</button>
+							-->
+							<button class="tickets" th:attr="ng-click=@{|mintNft('*{id}')|}">Buy</button>
 						</div>
 					</div>
 				</div>

@@ -1,0 +1,201 @@
+@charset "UTF-8";
+body {
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #FFFFFF;
+}
+
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 70px;
+	background-color: #fff;
+	z-index: 1000;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	/* Đảm bảo header hiển thị trên cùng */
+}
+
+.logo span {
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #337357;
+}
+
+strong {
+	color: black;
+}
+
+.search-bar {
+	position: relative;
+}
+
+.search-bar input[type="text"] {
+	padding: 8px 30px 8px 10px;
+	border: none;
+	border-radius: 4px;
+	width: 300px;
+	background-color: #eaeaea;
+	outline: none;
+}
+
+.search-icon {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY(-50%);
+	color: gray;
+	cursor: pointer;
+}
+
+.menu-user {
+	margin-right: 50px;
+	position: relative;
+	font-size: 30px;
+	color: gray;
+}
+
+.user-dropdown {
+	position: absolute;
+	top: 100%;
+	right: 0;
+	background-color: #FFFFFF;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	border-radius: 4px;
+	padding: 10px;
+	display: none;
+	width: 150px;
+}
+
+.menu-user:hover .user-dropdown {
+	display: block;
+}
+
+.user-dropdown a {
+	display: flex;
+	align-items: center;
+	/* căn chỉnh các phần tử trong hàng ngang */
+	padding: 10px 0;
+	color: #333;
+	text-decoration: none;
+	font-size: 15px;
+	margin-left: 10px;
+}
+
+.user-dropdown a i {
+	margin-right: 15px;
+	/* khoảng cách giữa biểu tượng và văn bản */
+}
+
+.user-dropdown a:hover {
+	color: #337357;
+}
+
+.sidebar {
+	position: fixed;
+	top: 70px;
+	/* Độ cao của header */
+	left: 0;
+	width: 300px;
+	height: calc(100vh - 70px);
+	background-color: #fff;
+	padding-top: 20px;
+	border-right: 1px solid #DDDDDD;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	overflow-y: auto;
+	z-index: 900;
+	/* Đảm bảo sidebar hiển thị dưới header */
+}
+
+.sidebar p {
+	font-size: 17px;
+	margin-left: 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: #337357;
+}
+
+.sidebar .nav-item a {
+	color: black;
+	margin-left: 15px;
+}
+
+.sidebar .nav-item a:hover {
+	color: #337357;
+}
+
+.sidebar .nav-item a i {
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+
+.content {
+	margin-top: 70px;
+	/* Độ cao của header */
+	margin-left:-100px;
+	/* Chiều rộng của sidebar */
+	padding: 20px;
+	background-color: #fff;
+	overflow-y: auto;
+}
+
+.button-btn {
+	margin-left: 0px;
+	margin-bottom: 50px;
+	margin-top: 30px;
+}
+
+.button-btn button {
+	width: 120px;
+	font-weight: 600;
+}
+
+.card {
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+	font-weight: 600;
+}
+
+.form-card {
+	padding: 20px;
+}
+
+.table-card {
+	padding: 20px;
+}
+
+table tr th {
+	font-size: 12px;
+	text-align: center;
+}
+
+table td {
+	text-align: center;
+	font-size: 13px;
+}
+
+.footer {
+	width: 100%;
+	background-color: #333;
+	color: #fff;
+	padding: 10px 0;
+	text-align: center;
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	right: 0;
+}
+
+.hidden {
+	display: none;
+}

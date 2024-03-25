@@ -20,9 +20,12 @@
 		rel="stylesheet">
 	<link rel="stylesheet"
 		th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}" />
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
 </head>
 
-<body>
+<body ng-app="my-app" ng-controller="my-ctrl">
 	<div th:insert="~{/layout/nav :: nav}"></div>
 	<div th:replace="${view}"></div>
 	<div th:insert="~{/layout/footer :: footer}"></div>
@@ -30,6 +33,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/js/splide.min.js"></script>
+	
+	<script src="/assets/js/profile.js"></script>
 </body>
 
 </html>

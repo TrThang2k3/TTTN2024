@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout-admin/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+</head>
+
+<body>
+	<div class="content" id="ticketContent">
+		<div class="card">
+			<div class="card-body">
+				<h2>Ticket</h2>
+				<div class="form-card">
+					<form id="ticketForm" th:object="${ticket}" th:action="@{/nextgen.com/admin-view-ticket/(id=${ticket.id})}" method="post" enctype="multipart/form-data">
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Ticketid" class="col-form-label">Ticket ID</label> <input
+									type="text" class="form-control" id="id" th:field="*{id}">
+							</div>
+							<div class="col-sm-6">
+								<label for="Publisherid" class="col-form-label">Publisher
+									ID</label> <input type="text" class="form-control" id="publisher"
+									th:field="*{publisher.id}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<label for="Ticketname" class="col-form-label">Ticket
+									Name</label> <input type="text" class="form-control" id="name"
+									th:field="*{name}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<label for="Ticketimage" class="col-form-label">Ticket Image</label> 
+								<input type="file" class="form-control" id="imageFile" th:field="*{imageFile}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Price" class="col-form-label">Price</label> <input
+									type="text" class="form-control" id="price" th:field="*{price}">
+							</div>
+							<div class="col-sm-6">
+								<label for="Shefttime" class="col-form-label">Sheft Time</label>
+								<input type="text" class="form-control" id="shelftime"
+									th:field="*{shelftime}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="Description" class="col-form-label">Description</label>
+								<input type="text" class="form-control" id="description"
+									th:field="*{description}">
+							</div>
+							<div class="col-sm-6">
+								<label for="Ticketcategories" class="col-form-label">Ticket
+									categories </label> <select class="form-control" id="selectOption"
+									th:field="*{type.id}">
+									<option th:each="type : ${types}" th:value="${type.id}"
+										th:text="${type.name}">Option</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-12 radio-group">
+								<div class="radio-item">
+									<input type="checkbox" id="isActive" th:field="*{isActive}">
+									<label for="active">Is Active</label>
+								</div>
+							</div>
+						</div>
+						<div class="button-btn">
+							<button type="submit" formaction="/nextgen.com/admin-view-ticket/create" class="btn btn-success">Create</button>
+                            <button type="submit" th:formaction="@{/nextgen.com/admin-view-ticket/update/{id}(id=${ticket.id})}" class="btn btn-primary">Update</button>
+							<button type="submit" th:formaction="@{/nextgen.com/admin-view-ticket/delete/{id}(id=${ticket.id})}" class="btn btn-secondary">Delete</button>
+                            <button type="submit" formaction="/nextgen.com/admin-view-ticket/reset" class="btn btn-danger">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card mt-4">
+			<div class="card-body">
+				<h2>Account List</h2>
+				<div class="table-card">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Ticket ID</th>
+									<th>Ticket Name</th>
+									<th>Publisher ID</th>
+									<th>Ticket Image</th>
+									<th>Price</th>
+									<th>Ticket categories</th>
+									<th>Shefl Time</th>
+									<th>Description</th>
+									<th>Is Active</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Add table rows with account information here -->
+								<tr th:each="ticket : ${tickets}">
+									<td th:text="${ticket.id}"></td>
+									<td th:text="${ticket.name}"></td>
+									<td th:text="${ticket.publisher.id}"></td>
+									<td th:text="${ticket.image}"></td>
+									<td th:text="${ticket.price}"></td>
+									<td th:text="${ticket.type.name}"></td>
+									<td th:text="${ticket.shelftime}"></td>
+									<td th:text="${ticket.description}"></td>
+									<td th:text="${ticket.isActive}"></td>
+									<td><a th:href="@{/nextgen.com/admin-view-ticket/edit/{id}(id=${ticket.id})}">Edit</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -9,13 +9,16 @@ import com.poly.entity.Publisher;
 import com.poly.entity.Ticket;
 import com.poly.entity.Type;
 import com.poly.repository.TicketDAO;
+import com.poly.repository.TypeDAO;
 import com.poly.service.TicketService;
 
 @Service
 public class TicketServiceImplement implements TicketService{
 	@Autowired
 	TicketDAO dao;
-
+	
+	@Autowired
+	TypeDAO typedao;
 	@Override
 	public List<Ticket> findAll() {
 		return dao.findAll();
@@ -30,6 +33,7 @@ public class TicketServiceImplement implements TicketService{
 	public Ticket create(Ticket ticket) {
 		return dao.save(ticket);
 	}
+
 
 	@Override
 	public Ticket update(Ticket ticket) {
@@ -50,5 +54,11 @@ public class TicketServiceImplement implements TicketService{
 	public List<Ticket> findByType(Type type) {
 		return dao.findByType(type);
 	}
+
+	@Override
+	public List<Type> findAllTypes() {
+		return typedao.findAll();
+	}
+
 
 }
