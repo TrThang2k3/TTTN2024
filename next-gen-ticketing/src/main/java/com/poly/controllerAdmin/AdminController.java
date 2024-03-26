@@ -26,6 +26,9 @@ public class AdminController {
 
 	@Autowired
 	AccountService accountservice;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping("admin-view")
 	public String view(Model model) {
@@ -44,6 +47,8 @@ public class AdminController {
 
 	@PostMapping("/admin-view/create")
 	public String createAccount(@ModelAttribute Account account) {
+		String password = account.getPassword();
+		account.setPassword(passwordEncoder.encode(password));
 		accountservice.create(account);
 		return "redirect:/nextgen.com/admin-view";
 	}
