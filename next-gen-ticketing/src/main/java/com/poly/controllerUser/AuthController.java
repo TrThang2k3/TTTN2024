@@ -12,10 +12,10 @@ public class AuthController {
 		return "/template-user/login";
 	}
 
-	@RequestMapping("/nextgen.com/login/success")
+	@RequestMapping("/nextgen.com")
 	public String success(Model model) {
 		model.addAttribute("message", "Login successful!");
-		return "forward:/nextgen.com/login";
+		return "forward:/nextgen.com";
 	}
 
 	@RequestMapping("/nextgen.com/login/error")

@@ -29,8 +29,10 @@ public class AuthenticationConfiguration {
 		http.authorizeHttpRequests(
 				auth -> auth.requestMatchers("/nextgen.com/account/**").authenticated()
 				.requestMatchers("/nextgen.com/publisher").hasRole("Publisher")
+				.requestMatchers("/nextgen.com/admin-view").hasAnyRole("Admin","Manager")
 							.anyRequest().permitAll() // anonymous
 		);
+		
 
 		// Điều khiển lỗi truy cập không đúng role
 		http.exceptionHandling(handler -> handler.accessDeniedPage("/nextgen.com/access/denied")); // error
@@ -38,7 +40,7 @@ public class AuthenticationConfiguration {
 		// Đăng nhập
 		http.formLogin((form) -> form.loginPage("/nextgen.com/login")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/nextgen.com/login/success", false)
+				.defaultSuccessUrl("/nextgen.com", false)
 				.failureUrl("/nextgen.com/login/error")
 				.usernameParameter("email").passwordParameter("password"));
 		http.rememberMe((remember) -> remember.rememberMeParameter("agree"));
