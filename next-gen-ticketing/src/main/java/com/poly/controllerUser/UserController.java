@@ -42,6 +42,8 @@ public class UserController {
 	TicketService ticketService;
 	@Autowired
 	ParamService request;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping({ "/nextgen.com", "/nextgen.com/home" })
 	public String index() {
@@ -96,6 +98,7 @@ public class UserController {
 			System.out.println(result);
 		} else {
 			try {
+				account.setPassword(passwordEncoder.encode(password));
 				accountService.create(account);
 				authService.create(account, "Customer");
 				model.addAttribute("message", "Đăng ký thành công! Hãy thực hiện đăng nhập");
