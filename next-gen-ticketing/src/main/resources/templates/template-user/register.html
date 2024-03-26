@@ -10,11 +10,15 @@
 <body>
 	<div class="mt-5 pt-5 w-50 mx-auto">
 		<h5 class="text-center">Sign Up</h5>
-		<form action="/nextgen.com/register" method="post" th:object="${account}">
+		<div th:if="${message}" th:text="${message}" class="alert alert-warning my-3"></div>
+		<form action="/signup" method="post" th:object="${account}">
 			<input class="form-control mb-3" type="text" th:field="*{firstName}" required placeholder="Firstname">
 			<input class="form-control mb-3" type="text" th:field="*{lastName}" required placeholder="Lastname">
 			<input class="form-control mb-3" type="email" th:field="*{email}" required placeholder="Email">
-			<input class="form-control mb-3" type="password" id="password" th:field="*{password}" required placeholder="Password">
+			<input class="form-control mb-3" type="text" th:field="*{phone}" required placeholder="Phone">
+			<input class="form-control mb-3" type="date" th:field="*{dayOfBirth}" required placeholder="Date of birth">
+			<input class="form-control mb-3" type="password" id="password" name="password" th:field="*{password}"
+				required placeholder="Password">
 			<input class="form-control mb-3" type="password" id="confirm-password" name="confirm-password" required
 				placeholder="Confirm password">
 			<div class="checkbox">
