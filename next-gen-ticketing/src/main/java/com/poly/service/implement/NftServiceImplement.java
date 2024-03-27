@@ -49,5 +49,10 @@ public class NftServiceImplement implements NftService{
 	public List<Nft> findByTicket(Ticket ticket) {
 		return dao.findByTicket(ticket);
 	}
+
+	@Override
+	public void deleteById(Integer id) {
+		dao.deleteById(id);
+	}
 	
 }

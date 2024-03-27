@@ -44,6 +44,8 @@ public class Nft implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(name = "createdate")
 	private Date createDate;
+	@Column(name = "isexpired")
+	private Boolean isExpired = false;
 	@JsonIgnore
 	@OneToMany(mappedBy = "nft")
 	private List<Invoice> invoices;
