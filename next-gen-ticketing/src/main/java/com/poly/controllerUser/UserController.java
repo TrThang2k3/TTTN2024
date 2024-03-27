@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +33,8 @@ public class UserController {
 	@Autowired
 	SessionService sessionService;
 	@Autowired
+	HttpServletRequest request;
+	@Autowired
 	AccountService accountService;
 	@Autowired
 	AuthorityService authService;
@@ -42,7 +43,7 @@ public class UserController {
 	@Autowired
 	TicketService ticketService;
 	@Autowired
-	ParamService request;
+	ParamService paramService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -50,7 +51,15 @@ public class UserController {
 	public String index() {
 		return "/template-user/home";
 	}
-
+	
+	@PostMapping("/nextgen.com/account/purchase")
+	public String purchase(Model model) {
+		Integer id = Integer.parseInt(request.getParameter("ticketId"));
+		model.addAttribute("ticket", ticketService.findById(id));
+		model.addAttribute("account", getLogAcc());
+		return "/template-user/payment";
+	}
+	
 	@GetMapping("/nextgen.com/ticket-gallery")
 	public String ticket(Model model) {
 		model.addAttribute("tickets", ticketService.findAll());
@@ -88,8 +97,8 @@ public class UserController {
 	@PostMapping("/signup")
 	public String register(Model model, @Validated @ModelAttribute("account") Account account, BindingResult result,
 			HttpServletRequest req) {
-		String password = request.getString("password", "");
-		String confirmPassword = request.getString("confirm-password", "");
+		String password = paramService.getString("password", "");
+		String confirmPassword = paramService.getString("confirm-password", "");
 		if (!password.equals(confirmPassword)) {
 			model.addAttribute("message", "Xác nhận mật khẩu không giống mật khẩu mới");
 			return "/template-user/register";

@@ -28,9 +28,10 @@
 				<button type="button" data-bs-toggle="modal" data-bs-target="#franchisingModal">Franchising</button>
 			</div>
 			<section>
-				<div class="products">
+				<div class="products ms-3">
 					<div class="card" th:each="t : ${tickets}" th:object="${t}">
-						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..." th:attr="id='ticketImage' + *{id}">
+						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..."
+							th:attr="id='ticketImage' + *{id}">
 						<div class="card-body text-dark">
 							<p class="event">[[*{publisher.name}]]</p>
 							<h4 class="title">Hà Nội</h4>
@@ -54,7 +55,10 @@
 								</p>
 							</div>
 							-->
-							<button class="tickets" th:attr="ng-click=@{|mintNft('*{id}')|}">Buy</button>
+							<form method="post" action="/nextgen.com/account/purchase">
+								<input name="ticketId" th:value="${t.id}" style="display: none;">
+								<button class="tickets" type="submit">Buy</button>
+							</form>
 						</div>
 					</div>
 				</div>

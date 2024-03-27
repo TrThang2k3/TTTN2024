@@ -70,5 +70,6 @@ public class Account implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
 	private List<Authority> authorities;
-	
+	@JsonIgnore
+	private String token;
 }
