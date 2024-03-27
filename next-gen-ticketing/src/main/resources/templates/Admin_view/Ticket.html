@@ -18,7 +18,7 @@
 						<div class="form-group row">
 							<div class="col-sm-6">
 								<label for="Ticketid" class="col-form-label">Ticket ID</label> <input
-									type="text" class="form-control" id="id" th:field="*{id}">
+									type="text" class="form-control" id="id" th:field="*{id}" disabled>
 							</div>
 							<div class="col-sm-6">
 								<label for="Publisherid" class="col-form-label">Publisher
@@ -37,6 +37,7 @@
 							<div class="col-sm-12">
 								<label for="Ticketimage" class="col-form-label">Ticket Image</label> 
 								<input type="file" class="form-control" id="imageFile" th:field="*{imageFile}">
+								<span th:text="${ticket.image}" hidden></span>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -85,7 +86,7 @@
 		</div>
 		<div class="card mt-4">
 			<div class="card-body">
-				<h2>Account List</h2>
+				<h2>Ticket List</h2>
 				<div class="table-card">
 					<div class="table-responsive">
 						<table class="table">
