@@ -40,7 +40,7 @@ public class AuthenticationConfiguration {
 		// Đăng nhập
 		http.formLogin((form) -> form.loginPage("/nextgen.com/login")
 				.loginProcessingUrl("/login")
-				.defaultSuccessUrl("/nextgen.com", false)
+				.defaultSuccessUrl("/nextgen.com/login/success", false)
 				.failureUrl("/nextgen.com/login/error")
 				.usernameParameter("email").passwordParameter("password"));
 		http.rememberMe((remember) -> remember.rememberMeParameter("agree"));

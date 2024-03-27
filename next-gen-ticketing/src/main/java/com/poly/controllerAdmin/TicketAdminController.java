@@ -62,7 +62,14 @@ public class TicketAdminController {
 	}
 	
 	@PostMapping("admin-view-ticket/update/{id}")
-	public String updateTicket(@PathVariable("id") Integer id, @ModelAttribute Ticket updateTicket) {
+	public String updateTicket(@PathVariable("id") Integer id, @ModelAttribute Ticket updateTicket, @RequestParam("imageFile") MultipartFile imagFile) {
+		if(!imagFile.isEmpty()){
+			String imageName= uploadserivce.save(imagFile, "images");
+			updateTicket.setImage(imageName);
+		}else{
+			Ticket existingTicket=ticketService.findById(id);
+			updateTicket.setImage(existingTicket.getImage());
+		}
 		updateTicket.setId(id);
 		ticketService.update(updateTicket);
 		return"redirect:/nextgen.com/admin-view-ticket";

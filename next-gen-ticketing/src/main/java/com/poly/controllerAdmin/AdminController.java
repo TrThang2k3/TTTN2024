@@ -48,7 +48,7 @@ public class AdminController {
 
 	@PostMapping("/admin-view/create")
 	public String createAccount(@ModelAttribute Account account) {
-		String password = account.getPassword();
+		String password = "123@123";
 		account.setPassword(passwordEncoder.encode(password));
 		accountservice.create(account);
 		return "redirect:/nextgen.com/admin-view";
@@ -58,6 +58,7 @@ public class AdminController {
 	public String updateAccount(@PathVariable("id") Integer id, @ModelAttribute Account updateAccount) {
 		updateAccount.setId(id);
 		accountservice.update(updateAccount);
+
 		return "redirect:/nextgen.com/admin-view";
 	}
 	

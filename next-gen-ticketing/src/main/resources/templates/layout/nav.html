@@ -6,8 +6,8 @@
 			<span><strong>Bus</strong>Ticket</span>
 		</div>
 		<div class="menu">
-			<a href="/nextgen.com/home">Home</a>
-			<a href="/nextgen.com/ticket-gallery">Shop</a>
+			<a th:href="@{/nextgen.com}">Home</a>
+			<a th:href="@{/nextgen.com/ticket-gallery}">Shop</a>
 			<a href="#">Services</a>
 			<a href="#">Contact</a>
 		</div>
@@ -25,7 +25,7 @@
 				<ul class="user-dropdown-content">
 					<li><i class="bi bi-person"></i><a th:href="@{/nextgen.com/account/profile}">Profile</a></li>
 					<li sec:authorize="hasRole('Publisher')"><i class="bi bi-gear"></i><a th:href="@{nextgen.com/publisher}"> Publisher</a></li>
-					<li sec:authorize="hasRole('Admin')"><i class="bi bi-gear"></i><a  th:href="@{nextgen.com/admin-view}"> Admin</a></li>
+					<li sec:authorize="hasAnyRole('Admin','Manager')"><i class="bi bi-gear"></i><a  th:href="@{nextgen.com/admin-view}"> Admin</a></li>
 					<li><i class="bi bi-box-arrow-right"></i><a href="/nextgen.com/account/logout">
 							Logout</a></li>
 				</ul>
