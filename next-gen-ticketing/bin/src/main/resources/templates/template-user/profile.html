@@ -1,173 +1,266 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account profile</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Account profile</title>
 </head>
 
 <body>
-    <div id="container">
-        <div id="sidebar">
-            <ul>
-                <li><a href="#" th:onclick="showForm('infoForm')">User Info</a></li>
-                <li><a href="#" th:onclick="showForm('passwordForm')">Change Password</a></li>
-                <li><a href="#" th:onclick="showForm('historyForm')">Purchase History</a></li>
-            </ul>
-        </div>
+	<div id="container" th:object="${account}">
+		<div id="sidebar">
+			<ul>
+				<li><a href="#" th:onclick="showForm('accountForm')">Account</a></li>
+				<li><a href="#" th:onclick="showForm('infoForm')">User Info</a></li>
+				<li><a href="#" th:onclick="showForm('passwordForm')">Change Password</a></li>
+				<li><a href="#" th:onclick="showForm('historyForm')">Purchase History</a></li>
+				<li th:if="*{isPublisher}"><a href="#" th:onclick="showForm('publisherForm')">Publisher Page</a></li>
+			</ul>
+		</div>
 
-        <div id="content">
-            <div class="form-container active" id="infoForm">
-                <h2>User Info Form</h2>
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="accountID" class="form-label">Account ID</label>
-                            <input type="text" class="form-control" id="accountID" name="accountID" value="12345"
-                                disabled>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="age" class="form-label">Age</label>
-                            <input type="date" class="form-control" id="age" name="age" required value="2003-05-10">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" required
-                                value="TRẦN">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" required
-                                value="VĂN HÀ">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                value="hatvps20256@fpt.edu.vn">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" required value="01676198912">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
-                    </div>
-                    <button type="button" class="btn btn-primary">Update</button>
-                </form>
-            </div>
-            <div class="form-container" id="passwordForm">
-                <h2>Change Password Form</h2>
-                <form id="changePasswordForm">
-                    <div class="mb-3">
-                        <label for="currentPassword" class="form-label">Current Password:</label>
-                        <input type="password" class="form-control" id="currentPassword" name="currentPassword"
-                            required>
-                    </div>
+		<div id="content">
+			<div class="form-container active" id="accountForm">
+				<div class="mt-3 row justify-content-between">
+					<div class="col-sm-8">
+						<h2>Wellcome, [[*{firstName + ' ' + lastName}]]</h2>
+					</div>
+					<div class="col-sm-3 border border-success text-success text-center"
+						style="height: 50px; line-height: 50px;">
+						Balance: [[*{balance}]] VND
+					</div>
+				</div>
+				<div th:unless="*{walletAddress}">
+					<div ng-hide="installPhantomMessage == ''" class="alert alert-warning my-3">
+						{{installPhantomMessage}}</div>
+				</div>
+				<div class="mt-3 row justify-content-between align-items-center">
+					<div class="col-sm-8">
+						<strong>Phantom Wallet: </strong>
+						<span th:if="*{walletAddress}">[[*{walletAddress}]]</span>
+						<span th:unless="*{walletAddress}">Not connected!</span>
+						<div th:unless="*{walletAddress}">
+							Already have? <a th:attr="ng-click=@{|connect('*{id}')|}" href="#">Connect </a>
+							or <a href="#" onclick="showForm2();">Create new wallet</a>
+							<form id="newWalletForm" class="mt-3" style="display: none;">
+								<label for="newWalletPassword" class="form-label">Wallet password</label>
+								<input type="password" ng-model="newWalletPassword" required>
+								<div class="fst-italic">Note: We don't save this password in any way.</div>
+								<button class="btn btn-success" type="submit"
+									th:attr="ng-click=@{|createSemiWallet('*{id}')|}">Create</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<button class="btn btn-light border-primary">Withdraw</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-container" id="infoForm" th:object="${accountDto}">
+				<h2>User Info Form</h2>
+				<form method="post" action="/nextgen.com/account/update-profile">
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="accountID" class="form-label">Account ID</label>
+							<input type="text" class="form-control" id="accountID" th:field="*{id}" disabled>
+						</div>
+						<div class="col-md-6">
+							<label for="age" class="form-label">Day of Birth</label>
+							<input type="date" class="form-control" id="dayOfBirth" th:field="*{dayOfBirth}" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="firstName" class="form-label">First Name</label>
+							<input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+						</div>
+						<div class="col-md-6">
+							<label for="lastName" class="form-label">Last Name</label>
+							<input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="email" class="form-label">Email</label>
+							<input type="email" class="form-control" id="email" th:field="*{email}" required>
+						</div>
+						<div class="col-md-6">
+							<label for="phone" class="form-label">Phone</label>
+							<input type="tel" class="form-control" id="phone" th:field="*{phone}" required>
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary">Update</button>
+				</form>
+			</div>
+			<div class="form-container" id="passwordForm">
+				<h2>Change Password Form</h2>
+				<form id="changePasswordForm">
+					<div class="mb-3">
+						<label for="currentPassword" class="form-label">Current Password:</label>
+						<input type="password" class="form-control" id="currentPassword" name="currentPassword"
+							required>
+					</div>
 
-                    <div class="mb-3">
-                        <label for="newPassword" class="form-label">New Password:</label>
-                        <input type="password" class="form-control" id="newPassword" name="newPassword" required>
-                    </div>
+					<div class="mb-3">
+						<label for="newPassword" class="form-label">New Password:</label>
+						<input type="password" class="form-control" id="newPassword" name="newPassword" required>
+					</div>
 
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Confirm Password:</label>
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                            required>
-                    </div>
+					<div class="mb-3">
+						<label for="confirmPassword" class="form-label">Confirm Password:</label>
+						<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+							required>
+					</div>
 
-                    <button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
-                </form>
-            </div>
-            <!-- Add other form containers as needed -->
-            <div class="form-container" id="historyForm">
-                <h2>Purchase History</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name Ticket</th>
-                            <th scope="col">Date of purchase</th>
-                            <th scope="col">Sellers</th>
-                            <th scope="col">Publisher</th>
-                            <th scope="col">Total Funds</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row"></th>
-                            <td>2022001</td>
-                            <td>Product A</td>
-                            <td>2</td>
-                            <td>$50.00</td>
-                            <td><a href="#" data-bs-toggle="modal" data-bs-target="#productDetailModal">View detail</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- Modal for Product Detail -->
-                <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="productDetailModalLabel">Product Detail</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="card mb-3" style="max-width: 540px;">
-                                    <div class="row g-0">
-                                        <div class="col-md-4">
-                                            <img src="/TTTN2024/next-gen-ticketing/src/main/resources/Static/img/Baby Taylor Finn.png" class="img-fluid rounded-start" alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Product Name</h5>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong>Ticket ID:</strong> 2022001</li>
-                                                    <li class="list-group-item"><strong>Publisher ID:</strong> Publisher123</li>
-                                                    <li class="list-group-item"><strong>Price:</strong> $50.00</li>
-                                                    <li class="list-group-item"><strong>Time Booking:</strong> 2022-03-10 12:30 PM</li>
-                                                    <li class="list-group-item"><strong>Shelf Time:</strong> 2022-03-15 10:00 AM</li>
-                                                    <li class="list-group-item"><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                                                </ul>
-                                                <button type="button" class="btn btn-primary mt-3">repurchase</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        function showForm(formId) {
-            // Hide all forms
-            var forms = document.getElementsByClassName('form-container');
-            for (var i = 0; i < forms.length; i++) {
-                forms[i].classList.remove('active');
-            }
+					<button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
+				</form>
+			</div>
+			<!-- Add other form containers as needed -->
+			<div class="form-container" id="historyForm">
+				<h2>Purchase History</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Name Ticket</th>
+							<th scope="col">Date of purchase</th>
+							<th scope="col">Sellers</th>
+							<th scope="col">Publisher</th>
+							<th scope="col">Total Funds</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row"></th>
+							<td>2022001</td>
+							<td>Product A</td>
+							<td>2</td>
+							<td>$50.00</td>
+							<td><a href="#" data-bs-toggle="modal" data-bs-target="#productDetailModal">View detail</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- Modal for Product Detail -->
+				<div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="productDetailModalLabel">Product Detail</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="card mb-3" style="max-width: 600px;">
+									<div class="row g-0">
+										<div class="col-md-4">
+											<img src="/img/Baby Taylor Finn.png" class="img-fluid rounded-start"
+												alt="...">
+										</div>
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Product Name</h5>
+												<ul class="list-group list-group-flush">
+													<li class="list-group-item"><strong>Ticket ID:</strong> 2022001</li>
+													<li class="list-group-item"><strong>Publisher ID:</strong>
+														Publisher123</li>
+													<li class="list-group-item"><strong>Price:</strong> $50.00</li>
+													<li class="list-group-item"><strong>Time Booking:</strong>
+														2022-03-10 12:30 PM</li>
+													<li class="list-group-item"><strong>Shelf Time:</strong> 2022-03-15
+														10:00 AM</li>
+													<li class="list-group-item"><strong>Description:</strong> Lorem
+														ipsum dolor sit amet, consectetur adipiscing elit.</li>
+												</ul>
+												<button type="button" class="btn btn-primary mt-3">repurchase</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            // Show the selected form
-            var selectedForm = document.getElementById(formId);
-            if (selectedForm) {
-                selectedForm.classList.add('active');
-            }
-        } 
-    </script>
+			<div class="form-container" id="publisherForm">
+				<div class="row justify-content-between align-items-center">
+					<div class="col-md-8">
+						<!--
+						<div class="form-group">
+							<label class="form-label">Name:</label>
+							<input type="text" class="form-control" th:field="*{publisher.name}" disabled>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Address:</label>
+							<input type="text" class="form-control" th:field="*{publisher.address}" disabled>
+						</div>
+						<div class="form-group">
+							<label class="form-label">Description:</label>
+							<textarea style="white-space: pre-line;" type="text" class="form-control" th:field="*{publisher.description}" disabled>
+						</div>
+						-->
+					</div>
+					<div class="col-md-3 mx-auto">
+						<button>New Ticket</button>
+					</div>
+				</div>
+				<h4>Ticket List</h4>
+				<div>
+					<div class="card" >
+						<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
+						<div class="card-body">
+							<p class="event">Bus Ticket</p>
+							<h2 class="title">Quận Bình Thạnh</h2>
+							<div class="address">
+								<div class="icon">
+									<i class="fa fa-table"></i>
+								</div>
+								<p>
+									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
+								</p>
+							</div>
+
+							<div class="loc">
+								<div class="icon">
+									<i class="fa fa-map-marker"></i>
+								</div>
+								<p>
+									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
+								</p>
+							</div>
+							<button class="tickets">Sell</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function showForm(formId) {
+			// Hide all forms
+			var forms = document.getElementsByClassName('form-container');
+			for (var i = 0; i < forms.length; i++) {
+				forms[i].classList.remove('active');
+			}
+
+			// Show the selected form
+			var selectedForm = document.getElementById(formId);
+			if (selectedForm) {
+				selectedForm.classList.add('active');
+			}
+		}
+
+		function showForm2() {
+			var form = document.getElementById('newWalletForm');
+			form.style.display = "block"
+		} 
+	</script>
 </body>
 
 </html>

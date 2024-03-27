@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout-admin/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+</head>
+
+<body>
+	<div class="content" id="accountContent">
+		<div class="card">
+			<div class="card-body">
+				<h2>Account</h2>
+				<div class="form-card">
+					<form id="accountForm"  th:object="${account}" method="post" >
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<label for="account" class="col-form-label">Account</label> 
+								<input type="text" class="form-control" id="id" th:field="*{id}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="firstName" class="col-form-label">First Name</label>
+								<input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+							</div>
+							<div class="col-sm-6">
+								<label for="lastName" class="col-form-label">Last Name</label> 
+								<input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="account" class="col-form-label">Email</label> 
+								<input type="email" class="form-control" id="email" th:field="*{email}">
+							</div>
+							<div class="col-sm-6">
+								<label for="password" class="col-form-label">Password</label> 
+								<input type="password" class="form-control" id="password" th:field="*{password}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="col-sm-6">
+								<label for="dayOfBirth" class="col-form-label">Day of Birth</label> 
+								<input type="date" class="form-control" id="dayOfBirth" th:field="*{dayOfBirth}">
+							</div>
+							<div class="col-sm-6">
+								<label for="balance" class="col-form-label">Balance</label> 
+								<input type="text" class="form-control" id="balance" th:field="*{balance}">
+							</div>
+						</div>
+					    <div class="col-sm-12 radio-group">
+					        <div class="row">
+					            <div class="col-sm-4 radio-item">
+					                <input type="checkbox" id="isPublisher" th:field="*{isPublisher}" value="true">
+					                <label for="publisher">Is Publisher</label>
+					            </div>
+					
+					            <div class="col-sm-4 radio-item">
+					                <input type="checkbox" id="isAdministrator" th:field="*{isAdministrator}" value="true">
+					                <label for="administrator">Is Administrator</label>
+					            </div>
+					
+					            <div class="col-sm-4 radio-item">
+					                <input type="checkbox" id="isActive" th:field="*{isActive}" value="true">
+					                <label for="active">Is Active</label>
+					            </div>
+					        </div>
+					    </div>
+						<div class="button-btn">
+							<button type="button" onclick="submitForm('/nextgen.com/admin-view/create')" class="btn btn-success">Create</button>
+                            <button type="button" onclick="submitForm('/nextgen.com/admin-view/update/' + document.getElementById('id').value)" class="btn btn-primary">Update</button>
+							<button type="button" onclick="submitForm('/nextgen.com/admin-view/delete/' + document.getElementById('id').value)"class="btn btn-secondary">Delete</button>
+                            <button type="button" onclick="submitForm('/nextgen.com/admin-view/reset')" formaction="/nextgen.com/admin-view/reset" class="btn btn-danger">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="card mt-4">
+			<div class="card-body">
+				<h2>Account List</h2>
+				<div class="table-card">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Account</th>
+									<th>FirstName</th>
+									<th>LastName</th>
+									<th>Email</th>
+									<th>DayOfBirth</th>
+									<th>Password</th>
+									<th>Balance</th>
+									<th>Is Publisher</th>
+									<th>Is Administrator</th>
+									<th>Is Active</th>
+									<th>Acttion</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Add table rows with account information here -->
+								<tr th:each="account : ${accountList}">
+									<td th:text="${account.id}"></td>
+									<td th:text="${account.firstName}"></td>
+									<td th:text="${account.lastName}"></td>
+									<td th:text="${account.email}"></td>
+									<td th:text="${account.dayOfBirth}"></td>
+									<td th:text="${account.password}"></td>
+									<td th:text="${account.balance}"></td>
+									<td th:text="${account.isPublisher}"></td>
+									<td th:text="${account.isAdministrator}"></td>
+									<td th:text="${account.isActive}"></td>
+									<td><a th:href="@{/nextgen.com/admin-view/edit/{id}(id=${account.id})}">Edit</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script language="JavaScript"  type="text/javascript" th:src="@{/js/admin.js}"></script>
+	<script type="text/javascript">
+    function submitForm(action) {
+        var form = document.getElementById('accountForm');
+        form.action = action;
+        form.submit();
+    }
+	</script>
+</body>
+
+</html>

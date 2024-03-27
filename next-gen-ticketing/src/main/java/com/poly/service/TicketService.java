@@ -20,4 +20,6 @@ public interface TicketService {
 	List<Ticket> findByPublisher(Publisher publisher);
 	
 	List<Ticket> findByType(Type type);
+	
+	List<Type> findAllTypes();
 }

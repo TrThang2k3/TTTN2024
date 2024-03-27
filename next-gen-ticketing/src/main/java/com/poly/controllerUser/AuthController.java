@@ -12,10 +12,10 @@ public class AuthController {
 		return "/template-user/login";
 	}
 
-	@RequestMapping("/nextgen.com/login/success")
+	@RequestMapping("/nextgen.com")
 	public String success(Model model) {
 		model.addAttribute("message", "Login successful!");
-		return "forward:/nextgen.com/login";
+		return "forward:/nextgen.com";
 	}
 
 	@RequestMapping("/nextgen.com/login/error")
@@ -30,7 +30,7 @@ public class AuthController {
 		return "forward:/nextgen.com/login";
 	}
 
-	@RequestMapping("auth/access/denied")
+	@RequestMapping("nextgen.com/access/denied")
 	public String access(Model model) {
 		model.addAttribute("message", "Access denied!");
 		return "forward:/nextgen.com/login";

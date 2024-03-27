@@ -72,6 +72,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		<dependency>
+    <groupId>com.h2database</groupId>
+    <artifactId>h2</artifactId>
+    <version>1.4.200</version> <!-- Điều chỉnh phiên bản nếu cần thiết -->
+</dependency>
+
 	</dependencies>
 
 	<build>

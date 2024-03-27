@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Publisher</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publisher</title>
 </head>
 
 <body>
@@ -13,38 +14,44 @@
 			<img th:src="@{/img/Baby Taylor Finn1.png}" alt="">
 		</div>
 		<div class="form-contact">
-			<form action="#" method="post" enctype="multipart/form-data" th:action="@{/submitForm}">
+			<form th:object="${ticket}" action="/nextgen.com/publisher/submit" method="post" enctype="multipart/form-data">
 				<div class="mb-3">
-					<label for="ticketID" class="form-label">Ticket Name</label> <input type="text" class="form-control"
-						id="" name="ticketID" required>
+					<label for="ticketID" class="form-label">Ticket Name</label> 
+					<input th:field="*{name}" type="text" class="form-control" id="ticketname" name="name" required>
 				</div>
 				<div class="mb-3">
-					<label for="publisherID" class="form-label">Publisher ID</label> <input type="text"
-						class="form-control" id="publisherID" name="publisherID" required>
+					<label for="genre" class="form-label">Publisher</label> 
+					<input type="text" class="form-control" th:value="${account.publisher.name}" disabled>
+					<input th:field="*{publisher.id}" style="display: none">
+				</div>
+
+				<div class="mb-3">
+					<label for="ticketImage" class="form-label">Ticket Image</label> 
+					<input  th:field="*{imageFile}" type="file" class="form-control" id="ticketimage" name="ticketImage" accept="image/*" required>
 				</div>
 				<div class="mb-3">
-					<label for="ticketImage" class="form-label">Ticket Image</label> <input type="file"
-						class="form-control" id="ticketImage" name="ticketImage" accept="image/*" required>
+					<label for="Ticketcategories" class="col-form-label">Ticket
+									categories </label> <select class="form-control" id="selectOption"
+									th:field="*{type.id}">
+									<option th:each="type : ${types}" th:value="${type.id}"
+										th:text="${type.name}">Option</option>
+								</select>
+				</div>
+
+				<div class="mb-3">
+					<label for="price" class="form-label">Price</label> 
+					<input th:field="*{price}" type="number" class="form-control" id="price" required>
 				</div>
 				<div class="mb-3">
-					<label for="price" class="form-label">Price</label> <input type="number" class="form-control"
-						id="price" name="price" required>
-				</div>
-				<div class="mb-3">
-					<label for="timeBooking" class="form-label">Time Booking</label> <input type="number"
-						class="form-control" id="timeBooking" name="timeBooking" required>
-				</div>
-				<div class="mb-3">
-					<label for="shelftime" class="form-label">Shelf Time</label> <input type="number"
-						class="form-control" id="shelftime" name="shelftime" required>
+					<label for="shelftime" class="form-label">Shelf Time</label> 
+					<input th:field="*{shelftime}" type="text" class="form-control" id="shelftime" required>
 				</div>
 				<div class="mb-3">
 					<label for="description" class="form-label">Description</label>
-					<textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+					<textarea th:field="*{description}" class="form-control" id="description" rows="3" required></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary" >Submit</button>
 			</form>
-
 		</div>
 	</div>
 </body>

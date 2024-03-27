@@ -3,6 +3,8 @@ package com.poly.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +37,7 @@ public class Invoice implements Serializable{
 	@JoinColumn(name = "buyerid")
 	private Account buyer;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "invoicedate")
 	private Date invoiceDate;
 	@ManyToOne

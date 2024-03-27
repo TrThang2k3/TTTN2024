@@ -1,7 +1,10 @@
+
 package com.poly.entity;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +40,8 @@ public class Ticket implements Serializable{
 	private Publisher publisher;
 	@Column(name = "ticketimage")
 	private String image;
+	@Transient
+	private MultipartFile imageFile;
 	private Float price;
 	@ManyToOne()
 	@JoinColumn(name = "typeid")
