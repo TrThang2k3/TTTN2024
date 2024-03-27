@@ -1,56 +1,56 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+.paybody {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
 }
 
-.container {
-    width: 800px;
-    border-radius: 8px;
-    padding: 40px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
-        0 5px 12px -2px rgba(0, 0, 0, 0.1),
-        0 18px 36px -6px rgba(0, 0, 0, 0.1);
+.paycontainer {
+	width: 800px;
+	border-radius: 8px;
+	padding: 40px;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+		0 5px 12px -2px rgba(0, 0, 0, 0.1),
+		0 18px 36px -6px rgba(0, 0, 0, 0.1);
 }
 
-.container .title {
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+.paycontainer .title {
+	font-size: 20px;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
-.container form input {
-    display: none;
+.paycontainer form input {
+	display: none;
 }
 
-.container form .category {
-    margin-top: 10px;
-    padding-top: 20px;
+.paycontainer form .category {
+	margin-top: 10px;
+	padding-top: 20px;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .category label {
-    width: 150%;
-    /* height: 65px; */
-    height: 145px;
-    padding: 20px;
-    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
-    display: flex;
-    /* justify-content: space-between; */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 5px;
-    position: relative;
+	width: 150%;
+	/* height: 65px; */
+	height: 145px;
+	padding: 20px;
+	box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+	display: flex;
+	/* justify-content: space-between; */
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 5px;
+	position: relative;
 }
 
 /* label:nth-child(2), label:nth-child(3){
@@ -62,7 +62,7 @@ body {
 #mastercard:checked~.category .mastercardMethod,
 #paypal:checked~.category .paypalMethod,
 #solana:checked~.category .solanaMethod {
-    box-shadow: 0px 0px 0px 1px #6064b6;
+	box-shadow: 0px 0px 0px 1px #6064b6;
 }
 
 
@@ -70,119 +70,119 @@ body {
 #mastercard:checked~.category .mastercardMethod .check,
 #paypal:checked~.category .paypalMethod .check,
 #solana:checked~.category .solanaMethod .check {
-    display: block;
+	display: block;
 }
 
 
 label .imgName {
-    display: flex;
-    /* justify-content: space-between;
+	display: flex;
+	/* justify-content: space-between;
      */
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    flex-direction: column;
-    gap: 10px;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .imgName span {
-    /* margin-left: 20px; */
-    font-family: Arial, Helvetica, sans-serif;
+	/* margin-left: 20px; */
+	font-family: Arial, Helvetica, sans-serif;
 
-    position: absolute;
-    top: 72%;
-    transform: translateY(-72%);
+	position: absolute;
+	top: 72%;
+	transform: translateY(-72%);
 }
 
 .imgName .imgContainer {
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 35%;
-    transform: translateY(-35%);
+	width: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 35%;
+	transform: translateY(-35%);
 }
 
 img {
-    width: 50px;
-    height: auto;
+	width: 50px;
+	height: auto;
 }
 
 .visa img {
-    width: 80px;
-    /* margin-left: 5px; */
+	width: 80px;
+	/* margin-left: 5px; */
 }
 
 .mastercard img {
-    width: 65px;
+	width: 65px;
 }
 
 .paypal img {
-    width: 80px;
+	width: 80px;
 }
 
 .solana img {
-    width: 50px;
+	width: 50px;
 }
 
 .check {
-    display: none;
-    position: absolute;
-    top: -4px;
-    right: -4px;
+	display: none;
+	position: absolute;
+	top: -4px;
+	right: -4px;
 }
 
 .check i {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 /*----------------------------------------------*/
 
-.card {
-    border: 1px solid rgba(255, 255, 255, 0.54);
-    margin-top: 30px;
-    margin-left: 100px;
-    display: grid;
-    width: 500px;
-    height: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
-        0 5px 12px -2px rgba(0, 0, 0, 0.1),
-        0 18px 36px -6px rgba(0, 0, 0, 0.1);
+.paycard {
+	border: 1px solid rgba(255, 255, 255, 0.54);
+	margin-top: 30px;
+	margin-left: 100px;
+	display: grid;
+	width: 500px;
+	height: 320px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1px;
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1),
+		0 5px 12px -2px rgba(0, 0, 0, 0.1),
+		0 18px 36px -6px rgba(0, 0, 0, 0.1);
 }
 
-.card .input {
-    margin-top: 20px;
-    width: 60%;
-    height: 40px;
-    padding-left: 10px;
-    box-shadow: 0px 10px 20px -18px;
-    border: 0.5px solid #e7e6e1;
+.paycard .input {
+	margin-top: 20px;
+	width: 60%;
+	height: 40px;
+	padding-left: 10px;
+	box-shadow: 0px 10px 20px -18px;
+	border: 0.5px solid #e7e6e1;
 }
 
 .btn-visa {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .btn-visa button {
-    width: 300px;
-    height: 35px;
-    background-color: #337357;
-    border: none;
-    color: #FFFFFF;
-    font-weight: 600;
+	width: 300px;
+	height: 35px;
+	background-color: #337357;
+	border: none;
+	color: #FFFFFF;
+	font-weight: 600;
 }
 
 .btn-visa button:hover {
-    background-color: #FFFFFF;
-    color: #337357;
-    border: 1px solid #337357;
+	background-color: #FFFFFF;
+	color: #337357;
+	border: 1px solid #337357;
 }
 
 /*Bank*/

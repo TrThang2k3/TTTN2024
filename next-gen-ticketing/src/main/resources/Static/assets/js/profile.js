@@ -1,5 +1,13 @@
 const app = angular.module("my-app", [])
-app.controller("my-ctrl", function($scope, $http) {
+app.run(function($http, $rootScope) {
+	$http.get(`http://localhost:8080/nextgen.com/rest/authentication`).then(resp => {
+		if (resp.data) {
+			$auth = $rootScope.$auth = resp.data;
+			$http.defaults.headers.common["Authorization"] = $auth.token;
+		}
+	});
+})
+app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 	let host = "http://localhost:8080/nextgen.com/rest/accounts"
 
 	// kiểm tra cài extension Phantom
@@ -57,58 +65,135 @@ app.controller("my-ctrl", function($scope, $http) {
 			.catch(error => console.log('error', error));
 	}
 
-	$scope.onImageEdit = async (imgUrl, imgName) => {
-		var imgExt = getUrlExtension(imgUrl);
-
-		const response = await fetch(imgUrl);
-		const blob = await response.blob();
-		const file = new File([blob], imgName + "." + imgExt, {
-			type: blob.type,
-		});
-
-		return file;
-
-	}
+	$scope.toDataURL = url => fetch(url)
+		.then(response => response.blob())
+		.then(blob => new Promise((resolve, reject) => {
+			const reader = new FileReader()
+			reader.onloadend = () => resolve(reader.result)
+			reader.onerror = reject
+			reader.readAsDataURL(blob)
+		}))
 
 	$scope.mintNft = function(ticketId) {
+		$http.get(`http://localhost:8080/nextgen.com/rest/tickets/${ticketId}`).then(resp => {
+			var receiver = $rootScope.$auth.account.walletAddress
+			var ticket = resp.data
+			console.log("Success", resp)
+
+			$scope.toDataURL(`http://localhost:8080/img/${ticket.image}`)
+				.then(dataUrl => {
+					var imageFile = dataUrl
+					var name = ticket.publisher.name + " Monthly Ticket"
+					var symbol = "NGT"
+					var attributes = '[{"trait_type":"price","value":"' + ticket.price +
+						'VND"}, {"trait_type":"shelftime","value":"' + ticket.shelftime +
+						'"}, {"trait_type":"createDate","value":"' + new Date() + '"}]'
+
+					var myHeaders = new Headers();
+					myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+					myHeaders.delete("Content-Type");
+
+					var formdata = new FormData();
+					formdata.append("network", "devnet");
+					formdata.append("private_key", "4kbEMgVHAYBdGpvrrHwH9LT21kzXQ9SQtcZtm9suqrAATxc9zn6KS6yqq5R21MoWzudNmxf52fb6nDGWMf1xkgZi");
+					formdata.append("name", name);
+					formdata.append("symbol", symbol);
+					formdata.append("description", ticket.description);
+					formdata.append("attributes", attributes);
+					formdata.append("max_supply", "1");
+					formdata.append("royalty", "5");
+					formdata.append("file", imageFile);
+					formdata.append("receiver", receiver);
+
+					var requestOptions = {
+						method: 'POST',
+						headers: myHeaders,
+						body: formdata,
+						redirect: 'follow'
+					};
+
+					fetch("https://api.shyft.to/sol/v1/nft/create", requestOptions)
+						.then(response => response.text())
+						.then(result => {
+							console.log(result)
+							alert("Purchase susscess!")
+							$timeout(location.href = "http://localhost:8080/nextgen.com/account/profile", 5)
+						})
+						.catch(error => console.log('error', error));
+				})
+		}).catch(error => {
+			console.log("Error", error)
+		})
+	}
+
+	$scope.getWalletBalance = function() {
+		$http.get(`http://localhost:8080/nextgen.com/rest/authentication`).then(resp => {
+			if (resp.data) {
+				var address = resp.data.account.walletAddress;
+				if (address != null) {
+					var myHeaders = new Headers();
+					myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+
+					var requestOptions = {
+						method: 'GET',
+						headers: myHeaders,
+						redirect: 'follow'
+					};
+					fetch(`https://api.shyft.to/sol/v1/wallet/balance?network=devnet&wallet=${address}`, requestOptions)
+						.then(response => response.text())
+						.then(result => {
+							console.log(result)
+							let objectResult = JSON.parse(result)
+							return objectResult.result.balance
+						})
+						.catch(error => console.log('error', error));
+				} else {
+					return 0
+				}
+			}
+		});
+	}
+
+	$scope.purchaseBySol = function(ticketId) {
+		var exchageRate = 4197814.65
+		var walletBalance = $scope.getWalletBalance() * exchageRate
+
 		$http.get(`http://localhost:8080/nextgen.com/rest/tickets/${ticketId}`).then(resp => {
 			var ticket = resp.data
 			console.log("Success", resp)
 
-			var imgSrc = document.getElementById('ticketImage' + ticketId).getAttribute('src')
-			console.log(imgSrc)
-			var file = $scope.onImageEdit(imgSrc, "Monthly ticket.jpeg")
-			var name = ticket.publisher.name + "Monthly Ticket"
-			var symbol = "MT"
+			var price = ticket.price
+			if (price > walletBalance) {
+				alert("The balance in the account is not enough to make the transaction")
+				location.href = "http://localhost:8080/nextgen.com/ticket-gallery"
+			} else {
+				var myHeaders = new Headers();
+				myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+				myHeaders.append("Content-Type", "application/json");
 
-			var myHeaders = new Headers();
-			myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+				var amount = Math.ceil(price / exchageRate * 1000000) / 1000000
+				var raw = JSON.stringify({
+					"network": "devnet",
+					"from_address": $rootScope.$auth.account.walletAddress,
+					"to_address": "BqNdMCoGrScQvGMcGBckVyyQXWymDVzD17EsPVj2ZLLV",
+					"amount": amount
+				});
 
-			var formdata = new FormData();
-			formdata.append("network", "devnet");
-			formdata.append("creator_wallet", "A9gyWK9tZJ7cBgDxdoAp74oaxJHmxjibzJ6ngCVKVZDN");
-			formdata.append("name", name);
-			formdata.append("symbol", symbol);
-			formdata.append("description", ticket.description);
-			formdata.append("attributes", '[{"price": ' + ticket.price + ',"shelftime": ' + ticket.shelftime + '}]');
-			formdata.append("external_url", "https://shyft.to");
-			formdata.append("max_supply", "1");
-			formdata.append("royalty", "5");
-			formdata.append("image", file, "Monthly ticket.jpeg");
-			formdata.append("fee_payer", "AaYFExyZuMHbJHzjimKyQBAH1yfA9sKTxSzBc6Nr5X4s");
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
 
-			var requestOptions = {
-				method: 'POST',
-				headers: myHeaders,
-				body: formdata,
-				redirect: 'follow'
-			};
-
-			fetch("https://api.shyft.to/sol/v2/nft/create", requestOptions)
-				.then(response => response.text())
-				.then(result => console.log(result))
-				.catch(error => console.log('error', error));
-
+				fetch("https://api.shyft.to/sol/v1/wallet/send_sol", requestOptions)
+					.then(response => response.text())
+					.then(result => {
+						console.log(result)
+						$scope.mintNft(ticketId)
+					})
+					.catch(error => console.log('error', error));
+			}
 		}).catch(error => {
 			console.log("Error", error)
 		})

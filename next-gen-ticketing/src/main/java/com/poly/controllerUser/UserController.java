@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,10 +20,14 @@ import com.poly.service.PublisherService;
 import com.poly.service.TicketService;
 import com.poly.util.service.SessionService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 public class UserController {
 	@Autowired
 	SessionService sessionService;
+	@Autowired
+	HttpServletRequest request;
 	@Autowired
 	AccountService accountService;
 	@Autowired
@@ -33,6 +38,14 @@ public class UserController {
 	@GetMapping({"/nextgen.com", "/nextgen.com/home"})
 	public String index() {
 		return "/template-user/home";
+	}
+	
+	@PostMapping("/nextgen.com/account/purchase")
+	public String purchase(Model model) {
+		Integer id = Integer.parseInt(request.getParameter("ticketId"));
+		model.addAttribute("ticket", ticketService.findById(id));
+		model.addAttribute("account", getLogAcc());
+		return "/template-user/payment";
 	}
 	
 	@GetMapping("/nextgen.com/ticket-gallery")

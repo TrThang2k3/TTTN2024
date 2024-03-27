@@ -4,12 +4,14 @@ import java.io.File;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poly.util.service.UploadService;
 
 import jakarta.servlet.ServletContext;
 
+@Service
 public class UploadServiceImplement implements UploadService{
 	@Autowired
 	ServletContext app;
