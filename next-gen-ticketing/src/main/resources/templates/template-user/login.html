@@ -8,36 +8,56 @@
 </head>
 
 <body>
-	<div class="mt-5 pt-5 w-50 mx-auto">
-		<h5 class="text-center">Sign In</h5>
+	<div class="container mt-5 pt-5 w-50 mx-auto">
 		<div th:if="${message}" th:text="${message}" class="alert alert-warning my-3"></div>
-		<form class="login-form" method="post" action="/login">
-			<input type="email" id="email" name="email" required placeholder="Email">
-			<input type="password" id="password" name="password" required placeholder="Password">
-			<div class="checkbox">
-				<input type="checkbox" id="agree" name="agree">
-				<label for="agree">Remember me</label>
-				<a href="#">Forgot password ?</a>
-			</div>
-			<button type="submit" class="btn btn-primary">Sign in</button>
-			<hr>
-			<div class="social-login">
-				<button class="twitter-login">
-					<i class="bi bi-twitter-x"></i>Sign in with Twitter
+			<form class="custom_form_container" method="post" action="/login">
+				<div class="custom_title_container">
+					<p class="custom_title">Login to your Account</p>
+					<span class="custom_subtitle">Get started with our app, just
+						create an account and enjoy the experience.</span>
+				</div>
+				
+				<br>
+				<div class="custom_input_container">
+					<label class="custom_input_label" for="email_field">Email</label> <input
+						placeholder="name@mail.com" title="Inpit title" name="email"
+						type="email" class="custom_input_field" id="email">
+				</div>
+				<div class="custom_input_container">
+					<label class="custom_input_label" for="password_field">Password</label>
+	
+					<input placeholder="Password" title="Inpit title" name="password"
+						type="password" class="custom_input_field" id="password">
+				</div>
+				<div class="flex-row">
+					
+					<a href="" class="custom_span">Forgot password?</a>
+				</div>
+	
+				<button title="Sign In" type="submit" class="custom_sign-in_btn">
+					<span>Sign In</span>
 				</button>
-			</div>
-			<div class="social-login">
-				<button class="google-login">
-					<i class="bi bi-google"></i>Sign in with Google
+	
+				<div class="custom_separator">
+					<hr class="custom_line">
+					<span>Or</span>
+					<hr class="custom_line">
+				</div>
+				<button title="Sign In" type="submit" class="custom_sign-in_ggl">
+					<img th:src="@{/img/search.png}" alt=""
+						style="width: 20px; margin-right: 10px;"> <span>Sign
+						In with Google</span>
 				</button>
-			</div>
-			<div class="register">
-				<p>
+				<button title="Sign In" type="submit" class="custom_sign-in_apl">
+					<img th:src="@{/img/twitter.png}" alt=""
+						style="width: 20px; margin-right: 10px;"> <span>Sign
+						In with Twitter</span>
+				</button>
+				<p class="custom_note">
 					You don't have an account ? <strong><a href="/nextgen.com/signup">Sign up</a></strong>
 				</p>
-			</div>
-		</form>
-	</div>
+			</form>
+		</div>
 </body>
 
 </html>

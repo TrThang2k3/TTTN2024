@@ -9,31 +9,68 @@
 
 <body>
 	<div class="mt-5 pt-5 w-50 mx-auto">
-		<h5 class="text-center">Sign Up</h5>
 		<div th:if="${message}" th:text="${message}" class="alert alert-warning my-3"></div>
-		<form action="/signup" method="post" th:object="${account}">
-			<input class="form-control mb-3" type="text" th:field="*{firstName}" required placeholder="Firstname">
-			<input class="form-control mb-3" type="text" th:field="*{lastName}" required placeholder="Lastname">
-			<input class="form-control mb-3" type="email" th:field="*{email}" required placeholder="Email">
-			<input class="form-control mb-3" type="text" th:field="*{phone}" required placeholder="Phone">
-			<input class="form-control mb-3" type="date" th:field="*{dayOfBirth}" required placeholder="Date of birth">
-			<input class="form-control mb-3" type="password" id="password" name="password" th:field="*{password}"
-				required placeholder="Password">
-			<input class="form-control mb-3" type="password" id="confirm-password" name="confirm-password" required
-				placeholder="Confirm password">
+		<form class="form_container" action="/signup" method="post" th:object="${account}">
+			<div class="title_container">
+				<p class="title">Sign Up for an Account</p>
+				<span class="subtitle">Create your account and get started
+					with our app.</span>
+			</div>
+			<br>
+			<div class="input_container">
+				<div class="flex-row">
+					<div class="input_container_half">
+						<label class="input_label" for="first_name">First Name</label>
+						<input placeholder="First Name" name="firstName" type="text" class="input_field" id="firstName"
+							th:field="*{firstName}">
+					</div>
+					<div class="input_container_half">
+						<label class="input_label" for="last_name">Last Name</label>
+						<input placeholder="Last Name" name="lastName" type="text" class="input_field" id="lastName"
+							th:field="*{lastName}">
+					</div>
+				</div>
+			</div>
+			<div class="input_container">
+				<label class="input_label" for="email_field">Email</label>
+				<input placeholder="name@mail.com" name="email" type="email" class="input_field" id="email"
+					th:field="*{email}">
+			</div>
+			<div class="input_container">
+				<label class="input_label" for="phone_field">Phone</label>
+				<input placeholder="Phone Number" name="phone" type="tel" class="input_field" id="phone"
+					th:field="*{phone}">
+			</div>
+			<div class="input_container">
+				<label class="input_label" for="phone_field">Day Of Birth</label>
+				<input placeholder="Phone Number" name="phone" type="date" class="input_field" id="phone"
+					th:field="*{dayOfBirth}">
+			</div>
+			<div class="input_container">
+				<label class="input_label" for="password_field">Password</label>
+				<input placeholder="Password" name="password" type="password" class="input_field" id="password" th:field="*{password}">
+			</div>
+			<div class="input_container">
+				<label class="input_label" for="confirm_password_field">Confirm Password</label>
+				<input placeholder="Confirm Password" name="confirm-password" type="password" class="input_field"
+					id="confirm-password">
+			</div>
 			<div class="checkbox">
 				<input class="my-auto" type="checkbox" id="agree" name="agree" required>
 				<label for="agree" class="my-auto">
 					I agree with the<strong> policies and conditions of use</strong> services of the Website
 				</label>
 			</div>
-
-			<button type="submit" class="btn btn-primary">Sign Up</button>
+			<button title="Sign Up" type="submit" class="sign-in_btn">
+				<span>Sign Up</span>
+			</button>
+			<p class="note">
+				Already have an account? <strong><a href="/nextgen.com/login">Sign in</a></strong>
+			</p>
 		</form>
-		<div class="btn-dang_nhap mx-auto">
-			<span>You already have an account <a href="/nextgen.com/login">Sign in</a></span>
-		</div>
 	</div>
+	
+	
 </body>
 
 </html>

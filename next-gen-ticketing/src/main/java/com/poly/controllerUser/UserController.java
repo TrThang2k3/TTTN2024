@@ -101,18 +101,18 @@ public class UserController {
 		String password = paramService.getString("password", "");
 		String confirmPassword = paramService.getString("confirm-password", "");
 		if (!password.equals(confirmPassword)) {
-			model.addAttribute("message", "Xác nhận mật khẩu không giống mật khẩu mới");
+			model.addAttribute("message", "Passwords are not duplicates");
 			return "/template-user/register";
 		}
 		if (result.hasErrors()) {
-			model.addAttribute("message", "Kiểm tra lại thông tin nhập");
+			model.addAttribute("message", "Check your registration information again");
 			System.out.println(result);
 		} else {
 			try {
 				account.setPassword(passwordEncoder.encode(password));
 				accountService.create(account);
 				authService.create(account, "Customer");
-				model.addAttribute("message", "Đăng ký thành công! Hãy thực hiện đăng nhập");
+				model.addAttribute("message", "Registration successfully");
 			} catch (Exception e) {
 				model.addAttribute("message", "Email is existed!");
 			}
