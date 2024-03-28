@@ -65,8 +65,6 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			.catch(error => console.log('error', error));
 	}
 
-<<<<<<< HEAD
-=======
 	$scope.invoice = {
 		get buyer() {
 			return { id: $rootScope.$auth.account.id }
@@ -108,7 +106,6 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 		}
 	}
 
->>>>>>> origin/main
 	$scope.toDataURL = url => fetch(url)
 		.then(response => response.blob())
 		.then(blob => new Promise((resolve, reject) => {
@@ -158,15 +155,11 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 
 					fetch("https://api.shyft.to/sol/v1/nft/create", requestOptions)
 						.then(response => response.text())
-<<<<<<< HEAD
-						.then(result => console.log(result))
-=======
 						.then(result => {
 							console.log(result)
 							let objectResult = JSON.parse(result)
 							$scope.nft.createNft(objectResult.result.mint, ticket)
 						})
->>>>>>> origin/main
 						.catch(error => console.log('error', error));
 				})
 		}).catch(error => {
@@ -203,10 +196,7 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 	}
 
 	$scope.purchaseBySol = function(ticketId) {
-<<<<<<< HEAD
-=======
 		$scope.payment = "sol"
->>>>>>> origin/main
 		var exchageRate = 4197814.65
 		var walletBalance = $scope.getWalletBalance() * exchageRate
 
@@ -243,11 +233,6 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 					.then(result => {
 						console.log(result)
 						$scope.mintNft(ticketId)
-<<<<<<< HEAD
-						alert("Purchase susscess!")
-						$timeout(location.href = "http://localhost:8080/nextgen.com/account/profile", 5)
-=======
->>>>>>> origin/main
 					})
 					.catch(error => console.log('error', error));
 			}
