@@ -19,4 +19,6 @@ public interface NftService {
 	List<Nft> findByAccount(Account account);
 	
 	List<Nft> findByTicket(Ticket ticket);
+
+	void deleteById(Integer id);
 }
