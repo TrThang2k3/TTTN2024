@@ -63,7 +63,7 @@
 						<div class="col-md-6">
 							<label for="accountID" class="form-label">Account ID</label>
 							<input type="text" class="form-control" id="accountID" th:field="*{id}" disabled>
-						</div>
+						</div>	
 						<div class="col-md-6">
 							<label for="age" class="form-label">Day of Birth</label>
 							<input type="date" class="form-control" id="dayOfBirth" th:field="*{dayOfBirth}" required>
@@ -124,20 +124,18 @@
 							<th scope="col">Name Ticket</th>
 							<th scope="col">Date of purchase</th>
 							<th scope="col">Sellers</th>
-							<th scope="col">Publisher</th>
-							<th scope="col">Total Funds</th>
-							<th scope="col">Action</th>
+							<th scope="col">amount</th>
+							<th scope="col">NFT</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th scope="row"></th>
-							<td>2022001</td>
-							<td>Product A</td>
-							<td>2</td>
-							<td>$50.00</td>
-							<td><a href="#" data-bs-toggle="modal" data-bs-target="#productDetailModal">View detail</a>
-							</td>
+						<tr th:each="invoice : ${history}" th:object="${invoice}">
+							<td>[[*{nft.ticket.name}]]</td>
+							<td>[[*{invoiceDate}]]</td>
+							<td>[[*{seller.firstName}]] [[*{seller.lastName}]]</td>
+							<td>[[*{amount}]]</td>
+							<td>[[*{nft.nftAddress}]]</td>
+							
 						</tr>
 					</tbody>
 				</table>

@@ -45,7 +45,7 @@ public class Account implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "dayofbirth")
-	private Date dayOfBirth;
+	private Date dayOfBirth = new Date();
 	@Column(name = "walletaddress")
 	private String walletAddress;
 	private Float balance = 0f;

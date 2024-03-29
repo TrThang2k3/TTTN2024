@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +21,11 @@ import com.poly.util.service.ParamService;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.poly.DTO.AccountDTO;
 import com.poly.entity.Account;
+import com.poly.entity.Invoice;
 import com.poly.entity.Publisher;
 import com.poly.service.AccountService;
 import com.poly.service.AuthorityService;
+import com.poly.service.InvoiceService;
 import com.poly.service.PublisherService;
 import com.poly.service.TicketService;
 import com.poly.util.service.SessionService;
@@ -45,6 +48,8 @@ public class UserController {
 	TicketService ticketService;
 	@Autowired
 	ParamService paramService;
+	@Autowired
+	InvoiceService inService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -76,9 +81,19 @@ public class UserController {
 		dto.setId(account.getId());
 		dto.setFirstName(account.getFirstName());
 		dto.setLastName(account.getLastName());
+		dto.setDayOfBirth(account.getDayOfBirth());
 		dto.setEmail(account.getEmail());
 		dto.setPhone(account.getPhone());
 		model.addAttribute("accountDto", dto);
+		model.addAttribute("history", inService.findByBuyer(account));
+		
+
+		return "/template-user/profile";	
+	}
+	@PostMapping("/nextgen.com/account/profile/update/{id}")
+	public String updateAccount(@PathVariable("id") Integer id, @ModelAttribute Account updateAccount) {
+		updateAccount.setId(id);
+		accountService.update(updateAccount);
 
 		return "/template-user/profile";
 	}
