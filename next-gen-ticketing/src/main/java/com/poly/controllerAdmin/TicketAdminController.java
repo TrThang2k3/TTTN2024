@@ -64,7 +64,7 @@ public class TicketAdminController {
 	@PostMapping("admin-view-ticket/update/{id}")
 	public String updateTicket(@PathVariable("id") Integer id, @ModelAttribute Ticket updateTicket, @RequestParam("imageFile") MultipartFile imagFile) {
 		if(!imagFile.isEmpty()){
-			String imageName= uploadserivce.save(imagFile, "images");
+			String imageName= uploadserivce.save(imagFile, "img");
 			updateTicket.setImage(imageName);
 		}else{
 			Ticket existingTicket=ticketService.findById(id);
