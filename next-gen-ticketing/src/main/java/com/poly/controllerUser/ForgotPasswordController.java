@@ -45,9 +45,9 @@ public class ForgotPasswordController {
 	            emailService.sendConfirmationEmailforgotPassword(account.getEmail(), account.getLastName(), newPassword);
 
 
-	            model.addAttribute("message", "The new password will be sent via your email!");
+	            model.addAttribute("message", "The new password has been sent to your email!");
 	        } else {
-	            model.addAttribute("error", "User does not exist!");
+	            model.addAttribute("error", "Email does not exist!");
 	        }
 			
 			return "template-user/forgotpassword";
