@@ -71,5 +71,8 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
 	private List<Authority> authorities;
 	@JsonIgnore
+	@OneToMany(mappedBy = "account")
+	private List<TradingNft> tradindNfts;
+	@JsonIgnore
 	private String token;
 }

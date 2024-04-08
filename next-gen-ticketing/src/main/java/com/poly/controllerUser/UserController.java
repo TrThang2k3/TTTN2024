@@ -79,6 +79,8 @@ public class UserController {
 		dto.setEmail(account.getEmail());
 		dto.setPhone(account.getPhone());
 		model.addAttribute("accountDto", dto);
+		
+		model.addAttribute("nfts", account.getNfts());
 
 		return "/template-user/profile";
 	}

@@ -65,6 +65,35 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			.catch(error => console.log('error', error));
 	}
 
+	// lấy nft vé trong ví
+	$scope.readNfts = function() {
+		$http.get(`http://localhost:8080/nextgen.com/rest/authentication`).then(resp => {
+			if (resp.data) {
+				var walletAddress = resp.data.account.walletAddress;
+				if (walletAddress != null) {
+					var myHeaders = new Headers();
+					myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+					myHeaders.delete("Content-Type");
+
+					var requestOptions = {
+						method: 'GET',
+						headers: myHeaders,
+						redirect: 'follow'
+					};
+
+					fetch(`https://api.shyft.to/sol/v2/nft/read_all?network=devnet&address=${walletAddress}&page=1&size=32&update_authority=A9gyWK9tZJ7cBgDxdoAp74oaxJHmxjibzJ6ngCVKVZDN`, requestOptions)
+						.then(response => response.text())
+						.then(result => {
+							let objectResult = JSON.parse(result)
+							$scope.nfts = objectResult.result.nfts
+							console.log($scope.nfts)
+						})
+						.catch(error => console.log('error', error));
+				}
+			}
+		});
+	}
+
 	$scope.invoice = {
 		get buyer() {
 			return { id: $rootScope.$auth.account.id }
@@ -78,7 +107,7 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			var data = angular.copy(this)
 			$http.post("http://localhost:8080/nextgen.com/rest/invoices", data).then(resp => {
 				alert("Purchase susscess!")
-				$timeout(location.href = "http://localhost:8080/nextgen.com/account/profile", 5)
+				$timeout(location.href = "http://localhost:8080/nextgen.com/account/profile", 3)
 				console.log(resp)
 			}).catch(error => {
 				alert("Đặt hàng lỗi")
@@ -113,6 +142,7 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			reader.onloadend = () => resolve(reader.result)
 			reader.onerror = reject
 			reader.readAsDataURL(blob)
+			console.log(blob)
 		}))
 
 	$scope.mintNft = function(ticketId) {
@@ -121,10 +151,16 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			var ticket = resp.data
 			console.log("Success", resp)
 
-			$scope.toDataURL(`http://localhost:8080/img/${ticket.image}`)
-				.then(dataUrl => {
-					var imageFile = dataUrl
-					var name = ticket.publisher.name + " Monthly Ticket"
+			fetch(`http://localhost:8080/img/${ticket.image}`)
+				.then(response => response.blob())
+				.then(blob => new Promise((resolve, reject) => {
+					const reader = new FileReader()
+					reader.onloadend = () => resolve(reader.result)
+					reader.onerror = reject
+					reader.readAsDataURL(blob)
+
+					var imageFile = blob
+					var name = ticket.publisher.name + " Ticket"
 					var symbol = "NGT"
 					var attributes = '[{"trait_type":"price","value":"' + ticket.price +
 						'VND"}, {"trait_type":"shelftime","value":"' + ticket.shelftime +
@@ -142,7 +178,7 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 					formdata.append("description", ticket.description);
 					formdata.append("attributes", attributes);
 					formdata.append("max_supply", "1");
-					formdata.append("royalty", "5");
+					formdata.append("royalty", "100");
 					formdata.append("file", imageFile);
 					formdata.append("receiver", receiver);
 
@@ -161,7 +197,7 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 							$scope.nft.createNft(objectResult.result.mint, ticket)
 						})
 						.catch(error => console.log('error', error));
-				})
+				}))
 		}).catch(error => {
 			console.log("Error", error)
 		})

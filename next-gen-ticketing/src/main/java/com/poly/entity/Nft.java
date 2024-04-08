@@ -49,4 +49,7 @@ public class Nft implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "nft")
 	private List<Invoice> invoices;
+	@JsonIgnore
+	@OneToMany(mappedBy = "nft")
+	private List<TradingNft> tradingNfts;
 }

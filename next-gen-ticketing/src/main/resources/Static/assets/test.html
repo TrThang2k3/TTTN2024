@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+</head>
+
+<body>
+    <input type="file" id="upload">
+    <button onclick="update()">Update</button>
+    <script>
+        update = function () {
+            var files = document.getElementById("upload")
+
+            var myHeaders = new Headers();
+            myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+
+            var formdata = new FormData();
+            formdata.append("network", "devnet");
+            formdata.append("update_authority_address", "4kbEMgVHAYBdGpvrrHwH9LT21kzXQ9SQtcZtm9suqrAATxc9zn6KS6yqq5R21MoWzudNmxf52fb6nDGWMf1xkgZi");
+            formdata.append("token_address", "5cygbCT7oSsdNwqdRt8KegDAsG81YfmXtAPdNSxT4PKf");
+            formdata.append("image", files.files[0], "Ticket Image");
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+            };
+
+            fetch("https://api.shyft.to/sol/v2/nft/update", requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
+        var trans = "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAUHh/MHHwDtGR5YbhDwWkSaSF+8B6BYN1ND/LwaOtIx5Y3UyG3BUMvkbuncp8lKmV6OTl/dB6Lutw3lAWbM6DSw2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARKYqzu3/Jwyu2vLqJovaZPxZStm6XHZL/Ku492+7IYrTfNoaO4Dpdos/vEIOMIQ1SU0jDfSQs23gbG6kwqigGgtwZbHj0XxFOJ1Sf2sEw81YuGxzGqD9tUm20bwD+ClGBqfVFxh70WY12tQEVf3CwMEkxo8hVnWl27rLXwgAAAApL2qmTxy7t0Dau91XAgq9w6PeKHNpfKpN6r8IIgOWWQEFCwAFBQMBBAACBgUFuQEyAAABHAAAAERlbW8gSGFub2lidXMgTW9udGhseSBUaWNrZXQDAAAATkdUWAAAAGh0dHBzOi8vbmZ0c3RvcmFnZS5saW5rL2lwZnMvYmFma3JlaWN0NHE0bmN0bmdrbjN3dGU2anluNXI2cHVhbGhrdzV0M3F1NWR4dHN5YWRudDUza3Nmb3H0AQEBAAAAh/MHHwDtGR5YbhDwWkSaSF+8B6BYN1ND/LwaOtIx5Y0BZAEBAQEAAAAAAA=="
+         
+    </script>
+</body>
+
+</html>
