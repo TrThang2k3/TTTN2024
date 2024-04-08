@@ -16,7 +16,7 @@ public class UploadServiceImplement implements UploadService{
 	ServletContext app;
 	
 	@Override
-    public String save(MultipartFile file, String folder) {
+    public File save(MultipartFile file, String folder) {
         File dir = new File(app.getRealPath(folder));
         if (!dir.exists()) {
             dir.mkdirs();
@@ -26,7 +26,8 @@ public class UploadServiceImplement implements UploadService{
         try {
             File savedFile = new File(dir, name);
             file.transferTo(savedFile);
-            return name;  // trả về tên của tệp đã được lưu
+            System.out.println(savedFile.getAbsolutePath());
+            return savedFile;  // trả về tên của tệp đã được lưu
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
