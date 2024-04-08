@@ -20,4 +20,6 @@ public interface AccountService {
 	Boolean existByEmail(String email);
 
 	Account update(Integer id, String walletAddress);
+
+	Account getAccountByEmail(String email);
 }

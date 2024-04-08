@@ -64,5 +64,9 @@ public class AccountServiceImplement implements AccountService{
 		account.setWalletAddress(walletAddress);
 		return dao.save(account);
 	}
+	@Override
+	public Account getAccountByEmail(String email) {
+		return dao.findByEmail(email);
+	}
 
 }

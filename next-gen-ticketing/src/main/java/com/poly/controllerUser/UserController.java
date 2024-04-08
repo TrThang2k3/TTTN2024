@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,9 +21,11 @@ import com.poly.util.service.ParamService;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.poly.DTO.AccountDTO;
 import com.poly.entity.Account;
+import com.poly.entity.Invoice;
 import com.poly.entity.Publisher;
 import com.poly.service.AccountService;
 import com.poly.service.AuthorityService;
+import com.poly.service.InvoiceService;
 import com.poly.service.PublisherService;
 import com.poly.service.TicketService;
 import com.poly.util.service.SessionService;
@@ -45,6 +48,8 @@ public class UserController {
 	TicketService ticketService;
 	@Autowired
 	ParamService paramService;
+	@Autowired
+	InvoiceService inService;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -76,11 +81,21 @@ public class UserController {
 		dto.setId(account.getId());
 		dto.setFirstName(account.getFirstName());
 		dto.setLastName(account.getLastName());
+		dto.setDayOfBirth(account.getDayOfBirth());
 		dto.setEmail(account.getEmail());
 		dto.setPhone(account.getPhone());
 		model.addAttribute("accountDto", dto);
 		
 		model.addAttribute("nfts", account.getNfts());
+		model.addAttribute("history", inService.findByBuyer(account));
+		
+
+		return "/template-user/profile";	
+	}
+	@PostMapping("/nextgen.com/account/profile/update/{id}")
+	public String updateAccount(@PathVariable("id") Integer id, @ModelAttribute Account updateAccount) {
+		updateAccount.setId(id);
+		accountService.update(updateAccount);
 
 		return "/template-user/profile";
 	}
@@ -103,18 +118,18 @@ public class UserController {
 		String password = paramService.getString("password", "");
 		String confirmPassword = paramService.getString("confirm-password", "");
 		if (!password.equals(confirmPassword)) {
-			model.addAttribute("message", "Xác nhận mật khẩu không giống mật khẩu mới");
+			model.addAttribute("message", "Passwords are not duplicates");
 			return "/template-user/register";
 		}
 		if (result.hasErrors()) {
-			model.addAttribute("message", "Kiểm tra lại thông tin nhập");
+			model.addAttribute("message", "Check your registration information again");
 			System.out.println(result);
 		} else {
 			try {
 				account.setPassword(passwordEncoder.encode(password));
 				accountService.create(account);
 				authService.create(account, "Customer");
-				model.addAttribute("message", "Đăng ký thành công! Hãy thực hiện đăng nhập");
+				model.addAttribute("message", "Registration successfully");
 			} catch (Exception e) {
 				model.addAttribute("message", "Email is existed!");
 			}

@@ -37,7 +37,7 @@
 							</div>
 							<div class="col-sm-6">
 								<label for="password" class="col-form-label">Password</label> 
-								<input type="text" class="form-control" id="password" th:field="*{password}" disabled  >
+								<input type="text" class="form-control" id="password" th:field="*{password}" disabled>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -71,7 +71,7 @@
 						<div class="button-btn">
 							<button type="button" onclick="submitForm('/nextgen.com/admin-view/create')" class="btn btn-success">Create</button>
                             <button type="button" onclick="submitForm('/nextgen.com/admin-view/update/' + document.getElementById('id').value)" class="btn btn-primary">Update</button>
-							<button type="button" onclick="submitForm('/nextgen.com/admin-view/delete/' + document.getElementById('id').value)"class="btn btn-secondary">Delete</button>
+							<button type="button" onclick="submitForm('/nextgen.com/admin-view/delete/' + document.getElementById('id').value)"class="btn btn-secondary" disabled>Delete</button>
                             <button type="button" onclick="submitForm('/nextgen.com/admin-view/reset')" formaction="/nextgen.com/admin-view/reset" class="btn btn-danger">Reset</button>
 						</div>
 					</form>

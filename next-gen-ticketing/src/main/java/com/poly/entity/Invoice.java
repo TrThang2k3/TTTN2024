@@ -39,7 +39,7 @@ public class Invoice implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "invoicedate")
-	private Date invoiceDate;
+	private Date invoiceDate = new Date();
 	@ManyToOne
 	@JoinColumn(name = "nftid")
 	private Nft nft;
