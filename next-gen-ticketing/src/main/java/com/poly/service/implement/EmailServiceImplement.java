@@ -10,7 +10,7 @@ import com.poly.service.EmailService;
 
 @Service
 public class EmailServiceImplement implements EmailService{
-	@Autowired
+	@Autowired(required = true)
 	JavaMailSender javaMailSender;
 
 	@Value("${spring.mail.username}")

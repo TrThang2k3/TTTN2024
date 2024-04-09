@@ -22,7 +22,7 @@
 							 th:attr="id='ticketImage' + *{id}">
 						<div class="card-body text-dark">
 							<p class="event">[[*{publisher.name}]]</p>
-							<h4 class="title">Hà Nội</h4>
+							<h4 class="title">[[*{name}]]</h4>
 							<div style="white-space: pre-line;">[[*{description}]]</div>
 							<form method="post" action="/nextgen.com/account/purchase">
 								<input name="ticketId" th:value="${t.id}" style="display: none;">
