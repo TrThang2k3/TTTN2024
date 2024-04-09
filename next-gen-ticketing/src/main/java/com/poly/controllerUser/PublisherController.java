@@ -65,5 +65,13 @@ public class PublisherController {
 	public List<Type> getTypes() {
 	    return ticService.findAllTypes();
 	}
+	@GetMapping("/nextgen.com/inforPublisher")
+	public String infor(Model model) {
+		Account account=getLogAcc();
+		model.addAttribute("publisher", account.getPublisher());
+
+		return "/template-user/inforPublisher";
+	}
+	
    
 }

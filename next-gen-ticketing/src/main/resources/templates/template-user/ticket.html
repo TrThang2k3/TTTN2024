@@ -9,52 +9,43 @@
 
 <body>
 	<div class="container1">
-		<aside class="sidebar">
-			<h2>GENRE</h2>
-			<div class="checkbox-container">
-				<label for="checkbox1" class="checkbox-label"> <input type="checkbox" id="checkbox1"
-						class="styled-checkbox">Monthly
-					pass
-				</label> <label for="checkbox2" class="checkbox-label"> <input type="checkbox" id="checkbox2"
-						class="styled-checkbox">Practice
-					tickets
-				</label>
-			</div>
-		</aside>
+		
 
 		<main class="main-content">
-			<div class="row2">
-				<!-- Button triggering the modal -->
-				<button type="button" data-bs-toggle="modal" data-bs-target="#franchisingModal">Franchising</button>
+			<div style="margin-left: 30px;">
+				<p style="font-size: 30px; font-weight: 600;">Tickets</p>
 			</div>
 			<section>
 				<div class="products ms-3">
 					<div class="card" th:each="t : ${tickets}" th:object="${t}">
 						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..."
-							th:attr="id='ticketImage' + *{id}">
+							 th:attr="id='ticketImage' + *{id}">
 						<div class="card-body text-dark">
 							<p class="event">[[*{publisher.name}]]</p>
 							<h4 class="title">Hà Nội</h4>
 							<div style="white-space: pre-line;">[[*{description}]]</div>
-							<!--
-							<div class="address">
-								<div class="icon">
-									<i class="fa fa-table"></i>
-								</div>
-								<p>
-									Monday 15th 2016 <br /> 15:20Pm & 11:00Am
-								</p>
-							</div>
-
-							<div class="loc">
-								<div class="icon">
-									<i class="fa fa-map-marker"></i>
-								</div>
-								<p>
-									167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
-								</p>
-							</div>
-							-->
+							<form method="post" action="/nextgen.com/account/purchase">
+								<input name="ticketId" th:value="${t.id}" style="display: none;">
+								<button class="tickets" type="submit" >Buy</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<!-- Second Section -->
+			<div style="margin-left: 30px; margin-top: 20px;">
+				<p style="font-size: 30px; font-weight: 600">Tickets Tranfers</p>
+			</div>
+			<section>
+				<div class="second-section-content">
+					<div class="card" th:each="t : ${tickets}" th:object="${t}">
+						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..."
+							 th:attr="id='ticketImage' + *{id}">
+						<div class="card-body text-dark">
+							<p class="event">[[*{publisher.name}]]</p>
+							<h4 class="title">Hà Nội</h4>
+							<div style="white-space: pre-line;">[[*{description}]]</div>
 							<form method="post" action="/nextgen.com/account/purchase">
 								<input name="ticketId" th:value="${t.id}" style="display: none;">
 								<button class="tickets" type="submit">Buy</button>
@@ -63,88 +54,8 @@
 					</div>
 				</div>
 			</section>
-			<!--Modal-->
-			<div class="modal fade" id="franchisingModal" tabindex="-1" aria-labelledby="franchisingModalLabel"
-				aria-hidden="true">
-				<div class="modal-dialog modal-lg modal-dialog-centered">
-					<div class="modal-content">
-						<!-- Modal content... -->
-						<div class="card">
-							<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
-							<div class="card-body">
-								<p class="event">Bus Ticket</p>
-								<h2 class="title">Quận Bình Thạnh</h2>
-								<div class="address">
-									<div class="icon">
-										<i class="fa fa-table"></i>
-									</div>
-									<p>
-										Monday 15th 2016 <br /> 15:20Pm & 11:00Am
-									</p>
-								</div>
-
-								<div class="loc">
-									<div class="icon">
-										<i class="fa fa-map-marker"></i>
-									</div>
-									<p>
-										167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
-									</p>
-								</div>
-								<button class="tickets" data-bs-toggle="modal" data-bs-target="#sellModal">Sell</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade" id="sellModal" tabindex="-1" aria-labelledby="sellModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg modal-dialog-centered">
-					<div class="modal-content">
-						<!-- Modal content... -->
-						<div class="modal-header">
-							<h5 class="modal-title" id="sellModalLabel">Sell Modal</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							<div class="card">
-								<img th:src="@{/img/Baby Taylor Finn.png}" class="card-img-top" alt="...">
-								<div class="card-body">
-									<p class="event">Bus Ticket</p>
-									<h2 class="title">Quận Bình Thạnh</h2>
-									<div class="address">
-										<div class="icon">
-											<i class="fa fa-table"></i>
-										</div>
-										<p>
-											Monday 15th 2016 <br /> 15:20Pm & 11:00Am
-										</p>
-									</div>
-
-									<div class="loc">
-										<div class="icon">
-											<i class="fa fa-map-marker"></i>
-										</div>
-										<p>
-											167 Bạch Đằng Phường 15<br /> Quận Bình Thạnh TP.Hồ Chí Minh
-										</p>
-									</div>
-
-									<div class="input-group">
-										<input type="text" placeholder="Enter price">
-										<div></div>
-									</div>
-									<button class="tickets" data-bs-toggle="modal"
-										data-bs-target="#sellModal">Sell</button>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
+			
+		</main> 
 	</div>
 </body>
 
