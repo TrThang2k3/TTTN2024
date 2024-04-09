@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.poly.entity.Publisher;
 import com.poly.repository.PublisherDAO;
+import com.poly.service.AuthorityService;
 import com.poly.service.PublisherService;
 
 @Controller
@@ -21,11 +22,11 @@ public class publisherAdminController {
 	PublisherService publisherService;
 	
 	@Autowired
-	PublisherDAO publisherDAO;
+	AuthorityService authorityService;
 	
 	@GetMapping("admin-view-publisher")
 	public String showView(Model model) {
-		model.addAttribute("publishers", publisherDAO.findAll());
+		model.addAttribute("publishers", publisherService.findAll());
 		model.addAttribute("publisher", new Publisher());
 		return"Admin_view/publisher";
 	}
@@ -34,13 +35,14 @@ public class publisherAdminController {
 	public String showEditForm(@PathVariable("id") Integer id, Model model) {
 		Publisher publisher = publisherService.findById(id);
 		model.addAttribute("publisher", publisher);
-		model.addAttribute("publishers", publisherDAO.findAll());
+		model.addAttribute("publishers", publisherService.findAll());
 		return "Admin_view/publisher";
 	}
 	
 	@PostMapping("/admin-view-publisher/create")
 	public String createPublisher(@ModelAttribute Publisher publisher) {
 		publisherService.create(publisher);
+		authorityService.create(publisher.getAccount(), "Publisher");
 		return"redirect:/nextgen.com/admin-view-publisher";
 	}
 	
@@ -53,13 +55,15 @@ public class publisherAdminController {
 	
 	@PostMapping("/admin-view-publisher/delete/{id}")
 	public String deletePublisher(@PathVariable("id") Integer id) {
+		Integer authId = authorityService.findId(publisherService.findById(id).getAccount().getId(), "Publisher");
 		publisherService.deleteById(id);
+		authorityService.deleteById(authId);
 		return"redirect:/nextgen.com/admin-view-publisher";
 	}
 	@PostMapping("/admin-view-publisher/reset")
 	public String resetForm(Model model) {
 		model.addAttribute("publisher", new Publisher());
-		model.addAttribute("publishers", publisherDAO.findAll());
+		model.addAttribute("publishers", publisherService.findAll());
 		return"Admin_view/Publisher";
 	}
 }

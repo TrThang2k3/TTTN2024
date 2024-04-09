@@ -52,9 +52,9 @@ public class TicketAdminController {
 	}
 	
 	@PostMapping("admin-view-ticket/create")
-	public String createTicket(@ModelAttribute Ticket ticket, @RequestParam("imageFile") MultipartFile imageFile) {
-		String imageName = uploadserivce.save(imageFile, "images");
-		
+	public String createTicket(@ModelAttribute Ticket ticket, @RequestParam("imageFile") MultipartFile imageFiles) {
+		File imageFile = uploadserivce.save(imageFiles, "img");
+		String imageName = imageFile.getName();
 		ticket.setImage(imageName);
 				
 		ticketService.create(ticket);
@@ -62,9 +62,10 @@ public class TicketAdminController {
 	}
 	
 	@PostMapping("admin-view-ticket/update/{id}")
-	public String updateTicket(@PathVariable("id") Integer id, @ModelAttribute Ticket updateTicket, @RequestParam("imageFile") MultipartFile imagFile) {
-		if(!imagFile.isEmpty()){
-			String imageName= uploadserivce.save(imagFile, "img");
+	public String updateTicket(@PathVariable("id") Integer id, @ModelAttribute Ticket updateTicket, @RequestParam("imageFile") MultipartFile imageFiles) {
+		if(!imageFiles.isEmpty()){
+			File imageFile = uploadserivce.save(imageFiles, "img");
+			String imageName = imageFile.getName();
 			updateTicket.setImage(imageName);
 		}else{
 			Ticket existingTicket=ticketService.findById(id);

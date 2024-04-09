@@ -13,4 +13,6 @@ public interface AuthorityService {
 	List<Authority> findAll();
 
 	void deleteById(Integer id);
+	
+	Integer findId(Integer accountId, String role);
 }

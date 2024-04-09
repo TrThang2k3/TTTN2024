@@ -1,5 +1,6 @@
 package com.poly.controllerUser;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +47,9 @@ public class PublisherController {
     }
     
     @PostMapping("/nextgen.com/publisher/submit")
-    public String SubmitTicket(@ModelAttribute Ticket ticket,@RequestParam("imageFile") MultipartFile imageFile) {
-    	String imageName=upService.save(imageFile, "images");
+    public String SubmitTicket(@ModelAttribute Ticket ticket,@RequestParam("imageFile") MultipartFile imageFiles) {
+    	File imageFile = upService.save(imageFiles, "img");
+    	String imageName = imageFile.getName();
     	ticket.setImage(imageName);
     	ticService.create(ticket);
     	return "redirect:/nextgen.com/publisher";

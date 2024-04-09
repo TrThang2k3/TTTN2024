@@ -54,5 +54,10 @@ public class NftServiceImplement implements NftService{
 	public void deleteById(Integer id) {
 		dao.deleteById(id);
 	}
+
+	@Override
+	public List<Nft> getNotExpiredNftsByAccount(Account account) {
+		return dao.findNotExpiredNftsByAccount(account);
+	}
 	
 }

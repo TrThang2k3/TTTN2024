@@ -1,6 +1,13 @@
 package com.poly.controllerUser;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +27,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.poly.util.service.ParamService;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.poly.DTO.AccountDTO;
+import com.poly.DTO.NftDTO;
 import com.poly.entity.Account;
 import com.poly.entity.Invoice;
+import com.poly.entity.Nft;
 import com.poly.entity.Publisher;
+import com.poly.entity.TradingNft;
 import com.poly.service.AccountService;
 import com.poly.service.AuthorityService;
 import com.poly.service.InvoiceService;
+import com.poly.service.NftService;
 import com.poly.service.PublisherService;
 import com.poly.service.TicketService;
+import com.poly.service.TradingNftService;
 import com.poly.util.service.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.server.PathParam;
 
 @Controller
 public class UserController {
@@ -51,13 +64,17 @@ public class UserController {
 	@Autowired
 	InvoiceService inService;
 	@Autowired
+	TradingNftService tradingService;
+	@Autowired
+	NftService nftService;
+	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
 	@GetMapping({ "/nextgen.com", "/nextgen.com/home" })
 	public String index() {
 		return "/template-user/home";
 	}
-	
+
 	@PostMapping("/nextgen.com/account/purchase")
 	public String purchase(Model model) {
 		Integer id = Integer.parseInt(request.getParameter("ticketId"));
@@ -65,7 +82,7 @@ public class UserController {
 		model.addAttribute("account", getLogAcc());
 		return "/template-user/payment";
 	}
-	
+
 	@GetMapping("/nextgen.com/ticket-gallery")
 	public String ticket(Model model) {
 		model.addAttribute("tickets", ticketService.findAll());
@@ -77,6 +94,7 @@ public class UserController {
 		Account account = accountService.findById(getLogAcc().getId());
 		model.addAttribute("account", account);
 
+		// thông tin tài khoản (không mật khẩu)
 		AccountDTO dto = new AccountDTO();
 		dto.setId(account.getId());
 		dto.setFirstName(account.getFirstName());
@@ -85,19 +103,57 @@ public class UserController {
 		dto.setEmail(account.getEmail());
 		dto.setPhone(account.getPhone());
 		model.addAttribute("accountDto", dto);
-		
-		model.addAttribute("nfts", account.getNfts());
-		model.addAttribute("history", inService.findByBuyer(account));
-		
 
-		return "/template-user/profile";	
+		// lịch sử giao dịch
+		model.addAttribute("history", inService.findByBuyer(account));
+
+		// danh sách nft vé đã mua
+		List<Nft> nfts = nftService.getNotExpiredNftsByAccount(account);
+		List<NftDTO> nftDtos = new ArrayList<>();
+		for (Nft nft : nfts) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(nft.getCreateDate());
+			cal.add(Calendar.DATE, nft.getTicket().getShelftime());
+			SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+			LocalDate expiredDate = LocalDate.parse(formater.format(cal.getTime()));
+
+			LocalDate today = LocalDate.now();
+			Integer days = Period.between(today, expiredDate).getDays();
+
+			Boolean isTranding = tradingService.existsAvailableNftTrading(nft);
+			NftDTO nftDto = new NftDTO(nft, days, isTranding);
+			nftDtos.add(nftDto);
+		}
+		model.addAttribute("nftDtos", nftDtos);
+
+		return "/template-user/profile";
 	}
+
 	@PostMapping("/nextgen.com/account/profile/update/{id}")
 	public String updateAccount(@PathVariable("id") Integer id, @ModelAttribute Account updateAccount) {
 		updateAccount.setId(id);
 		accountService.update(updateAccount);
-
 		return "/template-user/profile";
+	}
+	
+	@PostMapping("/trading-nft")
+	public String tradingNft(){
+		Integer nftId = Integer.parseInt(request.getParameter("nftId"));
+		Float price = Float.parseFloat(request.getParameter("price"));
+		
+		TradingNft entry = new TradingNft();
+		entry.setAccount(getLogAcc());
+		entry.setNft(nftService.findById(nftId));
+		entry.setPrice(price);
+		tradingService.create(entry);
+		return "redirect:/nextgen.com/account/profile";
+	}
+
+	@PostMapping("/trading-cancel/{nftId}")
+	public String cancelTradingNft(@PathVariable("nftId") Integer nftId) {
+		TradingNft entry = tradingService.findAvailableTradingNft(nftId);
+		tradingService.deleteById(entry.getId());
+		return "redirect:/nextgen.com/account/profile";
 	}
 
 	@GetMapping("/nextgen.com/account/payment")

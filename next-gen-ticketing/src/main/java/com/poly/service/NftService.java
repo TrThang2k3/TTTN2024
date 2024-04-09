@@ -21,4 +21,6 @@ public interface NftService {
 	List<Nft> findByTicket(Ticket ticket);
 
 	void deleteById(Integer id);
+
+	List<Nft> getNotExpiredNftsByAccount(Account account);
 }

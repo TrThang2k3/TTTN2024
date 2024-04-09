@@ -41,4 +41,9 @@ public class AuthorityServiceImplement implements AuthorityService{
 		dao.deleteById(id);
 	}
 
+	@Override
+	public Integer findId(Integer accountId, String role) {
+		return dao.findId(accountId, role);
+	}
+
 }
