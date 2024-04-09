@@ -9,51 +9,105 @@
 </head>
 
 <body>
-	<div class="d-block mt-3" style="min-height: 700px;">
-		<div class="img-header">
-			<img th:src="@{/img/Baby Taylor Finn1.png}" alt="">
-		</div>
-		<div class="form-contact">
-			<form th:object="${ticket}" action="/nextgen.com/publisher/submit" method="post" enctype="multipart/form-data">
-				<div class="mb-3">
-					<label for="ticketID" class="form-label">Ticket Name</label> 
-					<input th:field="*{name}" type="text" class="form-control" id="ticketname" name="name" required>
+	<main class="main-content">
+		<div class="custom-container">
+			<form  action="/nextgen.com/publisher"  method="get"  th:object="${publisher}">
+				<div class="custom-form">
+					<div class="img-publisher">
+						<span><strong>Bus</strong>Ticket</span>
+					</div>
+					<!-- Form Content -->
+					<div class="custom-form-item">
+						<label for="name" class="form-label">PUBLISHER ID</label> 
+						<input class="form-control" type="text" th:field="*{id}" disabled>
+					</div>
+					<div class="custom-form-item">
+						<label for="publishername" class="form-label">PUBLISHER NAME</label> 
+						<input type="text" class="form-control" id="" name="" th:field="*{name}" disabled>
+					</div>
+					<div class="custom-form-item">
+						<label for="description" class="form-label">DESCRIPTION</label>
+						<textarea class="form-control" name="" id="" rows="10" th:field="*{description}" disabled></textarea>
+					</div>
+					<div class="custom-form-item">
+						<label for="address">ADDRESS</label> 
+						<input type="text" class="form-control" id="" name="" th:field="*{address}"disabled>
+					</div>
+					<!-- <div class="btn-profile">
+						<button disabled class="btn btn-primary" type="submit" th:formaction="@{/nextgen.com/update/{id}(id=${publisher.id})}" >Update</button>
+					</div> -->
 				</div>
-				<div class="mb-3">
-					<label for="genre" class="form-label">Publisher</label> 
-					<input type="text" class="form-control" th:value="${account.publisher.name}" disabled>
-					<input th:field="*{publisher.id}" style="display: none">
-				</div>
-
-				<div class="mb-3">
-					<label for="ticketImage" class="form-label">Ticket Image</label> 
-					<input  th:field="*{imageFile}" type="file" class="form-control" id="ticketimage" name="ticketImage" accept="image/*" required>
-				</div>
-				<div class="mb-3">
-					<label for="Ticketcategories" class="col-form-label">Ticket
-									categories </label> <select class="form-control" id="selectOption"
-									th:field="*{type.id}">
-									<option th:each="type : ${types}" th:value="${type.id}"
-										th:text="${type.name}">Option</option>
-								</select>
-				</div>
-
-				<div class="mb-3">
-					<label for="price" class="form-label">Price</label> 
-					<input th:field="*{price}" type="number" class="form-control" id="price" required>
-				</div>
-				<div class="mb-3">
-					<label for="shelftime" class="form-label">Shelf Time</label> 
-					<input th:field="*{shelftime}" type="text" class="form-control" id="shelftime" required>
-				</div>
-				<div class="mb-3">
-					<label for="description" class="form-label">Description</label>
-					<textarea th:field="*{description}" class="form-control" id="description" rows="3" required></textarea>
-				</div>
-				<button type="submit" class="btn btn-primary" >Submit</button>
 			</form>
+
+			<div class="custom-form">
+				<!-- Form Content -->
+				<form th:object="${ticket}" action="/nextgen.com/publisher/submit" method="post" enctype="multipart/form-data">
+					<div class="custom-form-item">
+						<label for="ticketname" class="form-label">TICKET NAME</label> 
+						<input type="text" class="form-control" th:field="*{name}">
+					</div>
+					<div class="custom-form-item">
+						<label for="publishername" class="form-label">PUBLISHER</label> 
+						<input type="text" class="form-control" th:value="${account.publisher.name}" disabled>
+					    <input th:field="*{publisher.id}" style="display: none">
+					</div>
+					<div class="custom-form-item">
+						<label for="ticketImage" class="form-label">TICKET IMAGE</label> 
+						<input  th:field="*{imageFile}" type="file" class="form-control" id="ticketimage" name="ticketImage" accept="image/*" required>
+					</div>
+					<div class="custom-form-item">
+						<label for="Ticketcategories" class="form-label">TICKET CATEGORIES</label> 
+						<select class="form-control" id="selectOption" th:field="*{type.id}">
+							<option th:each="type : ${types}" th:value="${type.id}"
+                            th:text="${type.name}"></option>
+						</select>
+					</div>
+					<div class="custom-form-item">
+						<label for="price" class="form-label">PRICE</label> 
+						<input th:field="*{price}" type="number" class="form-control" id="price" required>
+					</div>
+					<div class="custom-form-item">
+						<label for="shelftime" class="form-label">SHELF TIME</label> 
+						<input th:field="*{shelftime}" type="text" class="form-control" id="shelftime" required>
+					</div>
+					<div class="custom-form-item">
+						<label for="description" class="form-label">DESCRIPTION</label> 
+						<textarea th:field="*{description}" class="form-control" id="description" rows="3" required></textarea>
+					</div>
+					<div class="btn-profile">
+						<button type="submit" class="btn btn-success">Create</button>
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
+
+
+		<!-- Slide sản phẩm -->
+		
+        <div class="slide-container">
+			<div class="slides">
+				<div class="card" th:each="t : ${tickets}" th:object="${t}">
+					<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..." th:attr="id='ticketImage' + *{id}">
+					<div class="card-body text-dark">
+						<p class="event">[[*{publisher.name}]]</p>
+						<h4 class="title">[[*{name}]]</h4>
+						<div style="white-space: pre-line;">[[*{description}]]</div>
+						<form method="post" action="/nextgen.com/account/purchase">
+							<input name="ticketId" th:value="${t.id}" style="display: none;">
+							<button class="tickets" type="submit">Buy</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="btn-product">
+				<button  onclick="moveSlide(-1)"><i class="bi bi-arrow-left-circle-fill"></i></button>
+				<button  onclick="moveSlide(1)"><i class="bi bi-arrow-right-circle-fill"></i></button>
+			</div>
+			
+		</div>
+        
+        
+	</main>
 </body>
 
 </html>

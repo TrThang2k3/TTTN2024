@@ -24,7 +24,7 @@
 				</button>
 				<ul class="user-dropdown-content">
 					<li><i class="bi bi-person"></i><a th:href="@{/nextgen.com/account/profile}">Profile</a></li>
-					<li sec:authorize="hasRole('Publisher')"><i class="bi bi-gear"></i><a th:href="@{nextgen.com/inforPublisher}"> Publisher</a></li>
+					<li sec:authorize="hasRole('Publisher')"><i class="bi bi-gear"></i><a th:href="@{nextgen.com/publisher}"> Publisher</a></li>
 					<li sec:authorize="hasAnyRole('Admin','Manager')"><i class="bi bi-gear"></i><a  th:href="@{nextgen.com/admin-view}"> Admin</a></li>
 					<li><i class="bi bi-box-arrow-right"></i><a href="/nextgen.com/account/logout">
 							Logout</a></li>

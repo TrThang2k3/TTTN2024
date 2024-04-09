@@ -1,0 +1,118 @@
+body{
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+.custom-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-top: 80px;
+}
+
+.custom-profile, .custom-form {
+	width: 600px;
+	/* Chia đều 2 phần */
+	padding: 20px;
+	border: 1px solid #ccc;
+}
+
+.slide-container {
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease;
+
+}
+
+.card {
+    flex: 0 0 auto;
+    width: 300px;
+	margin-top: 100px;
+	margin-right: 50px;
+	 /* Adjust this according to your slide width */
+}
+
+.slide-container .btn-product{
+	margin-left: 605px;
+	margin-top: 30px;
+	
+}
+
+.slide-container .btn-product button{
+	width: 70px;
+	border: none;
+	
+}
+
+.slide-container .btn-product button .bi{
+	color: #4CAF50;
+	font-size: 30px;
+}
+
+
+
+
+
+
+.custom-btn {
+	cursor: pointer;
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+}
+
+.custom-btn:hover {
+	background-color: #45a049;
+}
+
+.custom-form-item {
+	margin-bottom: 15px;
+}
+
+.custom-form-item label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.custom-form-item input, .custom-form-item textarea {
+	width: calc(100% - 12px);
+	/* Trừ đi kích thước của đường viền */
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+	/* Đảm bảo rằng padding không làm tăng kích thước */
+}
+
+.custom-form-item textarea {
+	height: 100px;
+	/* Đặt chiều cao cho textarea */
+}
+
+.img-publisher {
+	font-size: 1.5em;
+	text-align:center;
+	font-weight: 600;
+    color: green;
+    margin-bottom: 30px;
+}
+
+.main-content {
+	flex: 1;
+	padding: 80px;
+	box-sizing: border-box;
+}
+.btn-profile button{
+	width: 98%;
+}
