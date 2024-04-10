@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/layout :: dynamic(~{::title}, ~{::body})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Payment</title>
+</head>
+
+<body>
+	<div class="paybody">
+		<div class="paycontainer">
+			<div class="title">
+				<h4>Confirm Purchase</h4>
+			</div>
+			<div id="solanaForm" class="form">
+				<div class="d-grid justify-content-center mt-5">
+					<div>
+						<strong>Wallet:</strong> [[${account.walletAddress}]]
+					</div>
+					<div ng-init="price = ${tradingNft.price}">
+						<strong>Amount:</strong> {{priceInSol}}
+					</div>
+					<div class="btn-visa mx-auto">
+						<button th:attr="ng-click=@{|transferTicket('${tradingNft.id}')|}">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

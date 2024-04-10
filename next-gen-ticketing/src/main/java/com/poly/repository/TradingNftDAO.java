@@ -19,5 +19,8 @@ public interface TradingNftDAO extends JpaRepository<TradingNft, Integer>{
 
 	@Query(value = "SELECT o FROM TradingNft o WHERE o.nft.id = ?1 AND o.isAvailable = true")
 	TradingNft findAvailableNftTrading(Integer nftId);
+	
+	@Query(value = "SELECT o FROM TradingNft o WHERE o.isAvailable = true")
+	List<TradingNft> findAllAvailable();
 
 }

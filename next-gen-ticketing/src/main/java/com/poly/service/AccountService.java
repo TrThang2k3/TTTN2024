@@ -22,4 +22,6 @@ public interface AccountService {
 	Account update(Integer id, String walletAddress);
 
 	Account getAccountByEmail(String email);
+
+	Account updateBalance(Integer id, Float number);
 }

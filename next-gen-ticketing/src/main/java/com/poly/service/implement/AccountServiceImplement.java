@@ -69,4 +69,11 @@ public class AccountServiceImplement implements AccountService{
 		return dao.findByEmail(email);
 	}
 
+	@Override
+	public Account updateBalance(Integer id, Float number) {
+		Account account = dao.findById(id).get();
+		account.setBalance(number);
+		return dao.save(account);
+	}
+
 }

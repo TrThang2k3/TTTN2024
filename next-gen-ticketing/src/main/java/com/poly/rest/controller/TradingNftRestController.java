@@ -13,44 +13,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poly.entity.Account;
-import com.poly.service.AccountService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.poly.entity.TradingNft;
+import com.poly.service.TradingNftService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/nextgen.com/rest/accounts")
-public class AccountRestController {
+@RequestMapping("/nextgen.com/rest/trading-nfts")
+public class TradingNftRestController {
 	@Autowired
-	AccountService service;
-
+	TradingNftService service;
+	
 	@GetMapping()
-	public List<Account> getAll() {
+	public List<TradingNft> getAll() {
 		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Account getOne(@PathVariable("id") Integer id) {
+	public TradingNft getOne(@PathVariable("id") Integer id) {
 		return service.findById(id);
 	}
 
 	@PostMapping()
-	public Account create(@RequestBody Account account) {
-		return service.create(account);
+	public TradingNft create(TradingNft tradingNft) {
+		return service.create(tradingNft);
 	}
 
 	@PutMapping("/{id}")
-	public Account update(@PathVariable("id") Integer id, @RequestBody Account account) {
-		return service.update(account);
-	}
-	
-	@PutMapping("/{id}/balance")
-	public Account updateBalance(@PathVariable("id") Integer id, @RequestBody Float number) {
-		return service.updateBalance(id, number);
-	}
-	
-	@PutMapping("/{id}/wallet-address")
-	public Account updateWalletAddress(@PathVariable("id") Integer id, @RequestBody String walletAddress) {
-		return service.update(id, walletAddress);
+	public TradingNft update(@PathVariable("id") Integer id, @RequestBody TradingNft tradingNft) {
+		return service.update(tradingNft);
 	}
 
 	@DeleteMapping("/{id}")

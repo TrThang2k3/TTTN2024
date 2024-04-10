@@ -2,6 +2,7 @@ package com.poly.service;
 
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.poly.entity.Account;
 import com.poly.entity.Nft;
 import com.poly.entity.TradingNft;
@@ -23,5 +24,7 @@ public interface TradingNftService {
 	Boolean existsAvailableNftTrading(Nft nft);
 
 	TradingNft findAvailableTradingNft(Integer nftId);
+
+	List<TradingNft> findAllAvailable();
 	
 }

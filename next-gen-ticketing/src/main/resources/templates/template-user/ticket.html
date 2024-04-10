@@ -9,7 +9,7 @@
 
 <body>
 	<div class="container1">
-		
+
 
 		<main class="main-content">
 			<div style="margin-left: 30px;">
@@ -19,32 +19,10 @@
 				<div class="products ms-3">
 					<div class="card" th:each="t : ${tickets}" th:object="${t}">
 						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..."
-							 th:attr="id='ticketImage' + *{id}">
+							th:attr="id='ticketImage' + *{id}">
 						<div class="card-body text-dark">
 							<p class="event">[[*{publisher.name}]]</p>
 							<h4 class="title">[[*{name}]]</h4>
-							<div style="white-space: pre-line;">[[*{description}]]</div>
-							<form method="post" action="/nextgen.com/account/purchase">
-								<input name="ticketId" th:value="${t.id}" style="display: none;">
-								<button class="tickets" type="submit" >Buy</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</section>
-			
-			<!-- Second Section -->
-			<div style="margin-left: 30px; margin-top: 20px;">
-				<p style="font-size: 30px; font-weight: 600">Tickets Tranfers</p>
-			</div>
-			<section>
-				<div class="second-section-content">
-					<div class="card" th:each="t : ${tickets}" th:object="${t}">
-						<img th:src="@{|/img/*{image}|}" class="card-img-top" alt="..."
-							 th:attr="id='ticketImage' + *{id}">
-						<div class="card-body text-dark">
-							<p class="event">[[*{publisher.name}]]</p>
-							<h4 class="title">Hà Nội</h4>
 							<div style="white-space: pre-line;">[[*{description}]]</div>
 							<form method="post" action="/nextgen.com/account/purchase">
 								<input name="ticketId" th:value="${t.id}" style="display: none;">
@@ -54,8 +32,30 @@
 					</div>
 				</div>
 			</section>
-			
-		</main> 
+
+			<!-- Second Section -->
+			<div style="margin-left: 30px; margin-top: 20px;">
+				<p style="font-size: 30px; font-weight: 600">Tickets Tranfers</p>
+			</div>
+			<section>
+				<div class="second-section-content">
+					<div class="card" th:each="t : ${tradingNftDtos}" th:object="${t}">
+						<img th:src="@{|/img/*{nft.ticket.image}|}" class="card-img-top" alt="...">
+						<div class="card-body text-dark">
+							<h4 class="title">[[*{nft.ticket.name}]]</h4>
+							<div class="mt-3">Sell by: [[*{seller.firstName}]] [[*{seller.lastName}]]</div>
+							<div class="mt-2">Price: [[*{#numbers.formatDecimal(price, 0, 'COMMA', 0, 'POINT')}]] VND</div>
+							<div class="mt-2">Remain: [[*{remain}]] days</div>
+							<form method="post" action="/nextgen.com/account/purchase">
+								<input name="tradingId" th:value="${t.id}" style="display: none;">
+								<button class="tickets" type="submit" th:disabled="${logAccId == t.seller.id}">Buy</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</main>
 	</div>
 </body>
 

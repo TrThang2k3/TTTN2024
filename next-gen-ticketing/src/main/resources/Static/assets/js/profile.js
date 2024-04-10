@@ -233,14 +233,98 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 
 	$scope.purchaseBySol = function(ticketId) {
 		$scope.payment = "sol"
-		var exchageRate = 4197814.65
+		var exchageRate = 4342169.884
 		var walletBalance = $scope.getWalletBalance() * exchageRate
 
 		$http.get(`http://localhost:8080/nextgen.com/rest/tickets/${ticketId}`).then(resp => {
+			const webpackConfig = {
+				resolve: {
+					fallback: {
+						buffer: require.resolve('buffer/'),
+					},
+				},
+				plugins: [
+					new webpack.ProvidePlugin({
+						Buffer: ['buffer', 'Buffer'],
+					}),
+				],
+			};
 			var ticket = resp.data
 			console.log("Success", resp)
 
 			var price = ticket.price
+			if (price > walletBalance) {
+				alert("The balance in the account is not enough to make the transaction")
+				location.href = "http://localhost:8080/nextgen.com/ticket-gallery"
+			} else {
+				var amount = Math.ceil(price / exchageRate * 1000000) / 1000000
+				var from_address = new solanaWeb3.PublicKey($rootScope.$auth.account.walletAddress)
+				var to_address = new solanaWeb3.PublicKey("HBH36J9Lam3E1Pb95aWXiDCjrSsYPcSG5JTAqNQUxBzW")
+				var lamports_per_sol = solanaWeb3.LAMPORTS_PER_SOL
+				var lamports = amount * lamports_per_sol;
+				(async () => {
+
+					const network = "https://api.devnet.solana.com";
+					const connection = new solanaWeb3.Connection(network);
+
+					try {
+						console.log("starting sendMoney");
+
+						const instruction = solanaWeb3.SystemProgram.transfer({
+							fromPubkey: from_address,
+							toPubkey: to_address,
+							lamports, // about half a SOL
+						});
+						let trans = await setWalletTransaction(instruction, connection);
+
+						let signature = await signAndSendTransaction(wallet, trans, connection);
+						let result = await connection.confirmTransaction(signature, "singleGossip");
+						console.log("money sent", result);
+						alert("sen success")
+					} catch (e) {
+						console.warn("Failed", e);
+					}
+
+				})()
+
+				async function setWalletTransaction(
+					instruction, connection
+				) {
+					const transaction = new solanaWeb3.Transaction();
+					transaction.add(instruction);
+					transaction.feePayer = from_address;
+					let hash = await connection.getRecentBlockhash();
+					console.log("blockhash", hash);
+					transaction.recentBlockhash = hash.blockhash;
+					return transaction;
+				}
+
+				async function signAndSendTransaction(
+					transaction,
+					connection
+				) {
+					// Sign transaction, broadcast, and confirm
+					const { signature } = await window.solana.signAndSendTransaction(transaction);
+					await connection.confirmTransaction(signature);
+					console.log("sign transaction");
+					return signature;
+				}
+			}
+		}).catch(error => {
+			console.log("Error", error)
+		})
+	}
+
+	$scope.purchaseBySol2 = function(tradingId) {
+		$scope.payment = "sol"
+		var exchageRate = 4342169.884
+		var walletBalance = $scope.getWalletBalance() * exchageRate
+
+		$http.get(`http://localhost:8080/nextgen.com/rest/trading-nfts/${tradingId}`).then(resp => {
+			var tradingNft = resp.data
+			console.log("Success", resp)
+
+			var price = tradingNft.price
 			if (price > walletBalance) {
 				alert("The balance in the account is not enough to make the transaction")
 				location.href = "http://localhost:8080/nextgen.com/ticket-gallery"
@@ -268,13 +352,103 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 					.then(response => response.text())
 					.then(result => {
 						console.log(result)
-						$scope.mintNft(ticketId)
+
+						var data = JSON.stringify({
+							"network": "devnet",
+							"token_address": tradingNft.nft.nftAddress,
+							"from_address": "3XN5BcP9BGowKL5ukwebUSQeBAsQnHpR246USHaLyo3aY799GEesvGJScW3qcebaDwV6t32JDhFXSEk3LnPdps6d",
+							"to_address": $rootScope.$auth.account.walletAddress,
+							"transfer_authority": false,
+							"fee_payer": "BqNdMCoGrScQvGMcGBckVyyQXWymDVzD17EsPVj2ZLLV"
+						});
+
+						var requestOptions = {
+							method: 'POST',
+							headers: myHeaders,
+							body: data,
+							redirect: 'follow'
+						};
+
+						fetch("https://api.shyft.to/sol/v1/nft/transfer", requestOptions)
+							.then(response => response.text())
+							.then(result => {
+								console.log(result)
+								alert("Purchase")
+							})
+							.catch(error => console.log('error', error));
 					})
 					.catch(error => console.log('error', error));
 			}
 		}).catch(error => {
 			console.log("Error", error)
 		})
+	}
+
+	$scope.withdraw = function(walletAddress, balance, id) {
+		if (balance == 0 || balance == null) {
+			alert("Your wallet balance is zero")
+			return
+		}
+		if (walletAddress == null || walletAddress == '') {
+			alert("Please connect your Phantom wallet")
+			return
+		}
+		var myHeaders = new Headers();
+		myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+		myHeaders.append("Content-Type", "application/json");
+
+		var amount = Math.ceil(balance / 4342169.884 * 1000000) / 1000000
+		var raw = JSON.stringify({
+			"network": "devnet",
+			"from_address": "A9gyWK9tZJ7cBgDxdoAp74oaxJHmxjibzJ6ngCVKVZDN",
+			"to_address": walletAddress,
+			"amount": amount
+		});
+
+		var requestOptions = {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			redirect: 'follow'
+		};
+
+		fetch("https://api.shyft.to/sol/v1/wallet/send_sol", requestOptions)
+			.then(async response => {
+				var resp = await response.json()
+				var encodeTransaction = resp.result.encoded_transaction
+				var raw2 = JSON.stringify({
+					"network": "devnet",
+					"private_keys": [
+						"4kbEMgVHAYBdGpvrrHwH9LT21kzXQ9SQtcZtm9suqrAATxc9zn6KS6yqq5R21MoWzudNmxf52fb6nDGWMf1xkgZi"
+					],
+					"encoded_transaction": encodeTransaction,
+					"commitment": "finalized"
+				})
+				var requestOptions2 = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw2,
+					redirect: 'follow'
+				};
+
+				fetch("https://api.shyft.to/sol/v1/wallet/sign_transaction", requestOptions2)
+					.then(response => response.text())
+					.then(result => {
+						var resp = JSON.parse(result)
+						console.log(resp)
+						if (resp.success == true) {
+							$http.put(`http://localhost:8080/nextgen.com/rest/accounts/${id}/balance`, 0.0).then(resp => {
+								alert("Withdrew " + amount + " sol to your wallet")
+								console.log("Success", resp.data)
+								window.location.reload()
+							}).catch(error => {
+								console.log("Error", error)
+							})
+						}
+					})
+					.catch(error => console.log('error', error));
+			})
+			.catch(error => console.log('error', error));
 	}
 
 	$scope.checkPhantomInstalled()

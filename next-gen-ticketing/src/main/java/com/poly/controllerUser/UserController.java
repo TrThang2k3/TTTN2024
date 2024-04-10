@@ -3,6 +3,7 @@ package com.poly.controllerUser;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,10 +29,12 @@ import com.poly.util.service.ParamService;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 import com.poly.DTO.AccountDTO;
 import com.poly.DTO.NftDTO;
+import com.poly.DTO.TradingNftDTO;
 import com.poly.entity.Account;
 import com.poly.entity.Invoice;
 import com.poly.entity.Nft;
 import com.poly.entity.Publisher;
+import com.poly.entity.Ticket;
 import com.poly.entity.TradingNft;
 import com.poly.service.AccountService;
 import com.poly.service.AuthorityService;
@@ -77,15 +80,50 @@ public class UserController {
 
 	@PostMapping("/nextgen.com/account/purchase")
 	public String purchase(Model model) {
-		Integer id = Integer.parseInt(request.getParameter("ticketId"));
-		model.addAttribute("ticket", ticketService.findById(id));
-		model.addAttribute("account", getLogAcc());
+		try {
+			Integer ticketId = Integer.parseInt(request.getParameter("ticketId"));
+			Ticket ticket = ticketService.findById(ticketId);
+			model.addAttribute("ticket", ticket);
+			Double priceInSol = Math.round(ticket.getPrice() / 4342169.884 * 1000000) / 1000000d;
+			model.addAttribute("priceInSol", priceInSol);
+		} catch (Exception e) {
+			Integer tradingId = Integer.parseInt(request.getParameter("tradingId"));
+			TradingNft tradingNft = tradingService.findById(tradingId);
+			model.addAttribute("tradingNft", tradingNft);
+			Double priceInSol = Math.round(tradingNft.getPrice() / 4342169.884 * 1000000) / 1000000d;
+			model.addAttribute("priceInSol", priceInSol);
+		}
+		Account account = accountService.findById(getLogAcc().getId());
+		model.addAttribute("account", account);
 		return "/template-user/payment";
 	}
 
 	@GetMapping("/nextgen.com/ticket-gallery")
 	public String ticket(Model model) {
 		model.addAttribute("tickets", ticketService.findAll());
+		List<TradingNft> tradingNfts = tradingService.findAllAvailable();
+		List<TradingNftDTO> tradingNftDtos = new ArrayList<>();
+		for (TradingNft trading : tradingNfts) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(trading.getNft().getCreateDate());
+			cal.add(Calendar.DATE, trading.getNft().getTicket().getShelftime());
+			SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+			LocalDate expiredDate = LocalDate.parse(formater.format(cal.getTime()));
+
+			LocalDate today = LocalDate.now();
+			Integer days = (int) ChronoUnit.DAYS.between(today, expiredDate);
+
+			TradingNftDTO dto = new TradingNftDTO(trading.getId(), trading.getAccount(), trading.getNft(),
+					trading.getPrice(), days);
+			tradingNftDtos.add(dto);
+		}
+		model.addAttribute("tradingNftDtos", tradingNftDtos);
+		
+		try {
+			model.addAttribute("logAccId", getLogAcc().getId());
+		} catch (Exception e) {
+			model.addAttribute("logAccId", 0);
+		}
 		return "/template-user/ticket";
 	}
 
@@ -118,8 +156,8 @@ public class UserController {
 			LocalDate expiredDate = LocalDate.parse(formater.format(cal.getTime()));
 
 			LocalDate today = LocalDate.now();
-			Integer days = Period.between(today, expiredDate).getDays();
-
+			Integer days = (int) ChronoUnit.DAYS.between(today, expiredDate);
+			
 			Boolean isTranding = tradingService.existsAvailableNftTrading(nft);
 			NftDTO nftDto = new NftDTO(nft, days, isTranding);
 			nftDtos.add(nftDto);
@@ -135,12 +173,12 @@ public class UserController {
 		accountService.update(updateAccount);
 		return "/template-user/profile";
 	}
-	
+
 	@PostMapping("/trading-nft")
-	public String tradingNft(){
+	public String tradingNft() {
 		Integer nftId = Integer.parseInt(request.getParameter("nftId"));
 		Float price = Float.parseFloat(request.getParameter("price"));
-		
+
 		TradingNft entry = new TradingNft();
 		entry.setAccount(getLogAcc());
 		entry.setNft(nftService.findById(nftId));
@@ -156,10 +194,10 @@ public class UserController {
 		return "redirect:/nextgen.com/account/profile";
 	}
 
-	@GetMapping("/nextgen.com/account/payment")
-	public String newTicket() {
-		return "/template-user/payment";
-	}
+//	@GetMapping("/nextgen.com/account/payment")
+//	public String newTicket() {
+//		return "/template-user/payment";
+//	}
 
 	@GetMapping("/nextgen.com/signup")
 	public String register(Model model) {

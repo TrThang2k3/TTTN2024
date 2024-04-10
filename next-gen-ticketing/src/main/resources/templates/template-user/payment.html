@@ -8,81 +8,85 @@
 </head>
 
 <body>
-    <div class="paybody">
+	<div class="paybody">
 		<div class="paycontainer">
-        <div class="title">
-            <h4>Select a <span style="color: #6064b6">Payment</span> method</h4>
-        </div>
+			<div class="title">
+				<h4>Select a <span style="color: #6064b6">Payment</span> method</h4>
+			</div>
 
-        <form action="#">
-            <input type="radio" name="payment" id="visa" onclick="showForm('visaForm')">
-            <input type="radio" name="payment" id="solana" onclick="showForm('solanaForm')">
+			<form action="#">
+				<input type="radio" name="payment" id="visa" onclick="showForm('visaForm')">
+				<input type="radio" name="payment" id="solana" onclick="showForm('solanaForm')">
 
-            <div class="category">
-                <label for="visa" class="visaMethod">
-                    <div class="imgName">
-                        <div class="imgContainer visa">
-                            <img src="https://i.ibb.co/vjQCN4y/Visa-Card.png" alt="">
-                        </div>
-                        <span class="name">VISA</span>
-                    </div>
-                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
-                </label>
-                <label for="solana" class="solanaMethod">
-                    <div class="imgName">
-                        <div class="imgContainer solana">
-                            <img src="/img/solana.png" alt="">
-                        </div>
-                        <span class="name">Solana</span>
-                    </div>
-                    <span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
-                </label>
-            </div>
-        </form>
-
-        <!-- Thêm các form cho từng phương thức thanh toán -->
-        <div id="visaForm" class="form" style="display: none;">
-            <!-- Nội dung form VISA -->
-            <div class="paycard">
-                <!-- ... Nội dung form ... -->
-                <input class="input" name="number" placeholder="Card Number" type="text">
-                <input class="input" name="date" placeholder="Expiration Date" type="date">
-                <input class="input" name="text" placeholder="Full Name" type="text">
-                <input class="input" name="number" placeholder="CVV" type="texxt">
-                <div class="btn-visa">
-                    <button>Submit</button>
-                </div>
-            </div>
-        </div>
-        <div id="solanaForm" class="form" style="display: none;">
-            <div class="d-grid justify-content-center mt-5">
-                <div>
-					<strong>Wallet:</strong> [[${account.walletAddress}]]
+				<div class="category">
+					<label for="visa" class="visaMethod">
+						<div class="imgName">
+							<div class="imgContainer visa">
+								<img src="https://i.ibb.co/vjQCN4y/Visa-Card.png" alt="">
+							</div>
+							<span class="name">VISA</span>
+						</div>
+						<span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+					</label>
+					<label for="solana" class="solanaMethod">
+						<div class="imgName">
+							<div class="imgContainer solana">
+								<img src="/img/solana.png" alt="">
+							</div>
+							<span class="name">Solana</span>
+						</div>
+						<span class="check"><i class="fa-solid fa-circle-check" style="color: #6064b6;"></i></span>
+					</label>
 				</div>
-                <div class="btn-visa mx-auto">
-                    <button th:attr="ng-click=@{|purchaseBySol('${ticket.id}')|}">Submit</button>
-                </div>
-            </div>
-        </div>
-    </div>
+			</form>
+
+			<!-- Thêm các form cho từng phương thức thanh toán -->
+			<div id="visaForm" class="form" style="display: none;">
+				<!-- Nội dung form VISA -->
+				<div class="paycard">
+					<!-- ... Nội dung form ... -->
+					<input class="input" name="number" placeholder="Card Number" type="text">
+					<input class="input" name="date" placeholder="Expiration Date" type="date">
+					<input class="input" name="text" placeholder="Full Name" type="text">
+					<input class="input" name="number" placeholder="CVV" type="texxt">
+					<div class="btn-visa">
+						<button>Submit</button>
+					</div>
+				</div>
+			</div>
+			<div id="solanaForm" class="form" style="display: none;">
+				<div class="d-grid justify-content-center mt-5">
+					<div>
+						<strong>Wallet:</strong> [[${account.walletAddress}]]
+					</div>
+					<div >
+						<strong>Amount:</strong> [[${priceInSol}]] sol
+					</div>
+					<div class="btn-visa mx-auto">
+						<button th:if="${ticket}" th:attr="ng-click=@{|purchaseBySol('${ticket.id}')|}">Submit</button>
+						<button th:if="${tradingNft}" th:attr="ng-click=@{|purchaseBySol2('${tradingNft.id}')|}">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-		
 
-    <script>
-        function showForm(formId) {
-            // Ẩn tất cả các form
-            var allForms = document.querySelectorAll('.form');
-            allForms.forEach(function (form) {
-                form.style.display = 'none';
-            });
 
-            // Hiển thị form tương ứng với phương thức thanh toán được chọn
-            var selectedForm = document.getElementById(formId);
-            if (selectedForm) {
-                selectedForm.style.display = 'block';
-            }
-        }
-    </script>
+	<script>
+		function showForm(formId) {
+			// Ẩn tất cả các form
+			var allForms = document.querySelectorAll('.form');
+			allForms.forEach(function (form) {
+				form.style.display = 'none';
+			});
+
+			// Hiển thị form tương ứng với phương thức thanh toán được chọn
+			var selectedForm = document.getElementById(formId);
+			if (selectedForm) {
+				selectedForm.style.display = 'block';
+			}
+		}
+	</script>
 </body>
 
 </html>

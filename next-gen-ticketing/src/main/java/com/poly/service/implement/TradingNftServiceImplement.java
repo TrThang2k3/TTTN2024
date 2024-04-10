@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poly.entity.Account;
 import com.poly.entity.Nft;
 import com.poly.entity.TradingNft;
@@ -60,6 +62,11 @@ public class TradingNftServiceImplement implements TradingNftService{
 	@Override
 	public TradingNft findAvailableTradingNft(Integer nftId) {
 		return dao.findAvailableNftTrading(nftId);
+	}
+
+	@Override
+	public List<TradingNft> findAllAvailable() {
+		return dao.findAllAvailable();
 	}
 
 }
