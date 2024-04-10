@@ -237,18 +237,6 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 		var walletBalance = $scope.getWalletBalance() * exchageRate
 
 		$http.get(`http://localhost:8080/nextgen.com/rest/tickets/${ticketId}`).then(resp => {
-			const webpackConfig = {
-				resolve: {
-					fallback: {
-						buffer: require.resolve('buffer/'),
-					},
-				},
-				plugins: [
-					new webpack.ProvidePlugin({
-						Buffer: ['buffer', 'Buffer'],
-					}),
-				],
-			};
 			var ticket = resp.data
 			console.log("Success", resp)
 
@@ -257,61 +245,47 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 				alert("The balance in the account is not enough to make the transaction")
 				location.href = "http://localhost:8080/nextgen.com/ticket-gallery"
 			} else {
+				var myHeaders = new Headers();
+				myHeaders.append("x-api-key", "vLX6bZRAvPd2DXfe");
+				myHeaders.append("Content-Type", "application/json");
+
 				var amount = Math.ceil(price / exchageRate * 1000000) / 1000000
-				var from_address = new solanaWeb3.PublicKey($rootScope.$auth.account.walletAddress)
-				var to_address = new solanaWeb3.PublicKey("HBH36J9Lam3E1Pb95aWXiDCjrSsYPcSG5JTAqNQUxBzW")
-				var lamports_per_sol = solanaWeb3.LAMPORTS_PER_SOL
-				var lamports = amount * lamports_per_sol;
-				(async () => {
+				var raw = JSON.stringify({
+					"network": "devnet",
+					"from_address": $rootScope.$auth.account.walletAddress,
+					"to_address": "A9gyWK9tZJ7cBgDxdoAp74oaxJHmxjibzJ6ngCVKVZDN",
+					"amount": amount
+				});
 
-					const network = "https://api.devnet.solana.com";
-					const connection = new solanaWeb3.Connection(network);
+				var requestOptions = {
+					method: 'POST',
+					headers: myHeaders,
+					body: raw,
+					redirect: 'follow'
+				};
 
-					try {
-						console.log("starting sendMoney");
+				fetch("https://api.shyft.to/sol/v1/wallet/send_sol", requestOptions)
+					.then(response => response.text())
+					.then(async result => {
+						var data = JSON.parse(result);
+						console.log(data)
+						var encodedTransaction = data.result.encoded_transaction
 
-						const instruction = solanaWeb3.SystemProgram.transfer({
-							fromPubkey: from_address,
-							toPubkey: to_address,
-							lamports, // about half a SOL
-						});
-						let trans = await setWalletTransaction(instruction, connection);
-
-						let signature = await signAndSendTransaction(wallet, trans, connection);
-						let result = await connection.confirmTransaction(signature, "singleGossip");
-						console.log("money sent", result);
-						alert("sen success")
-					} catch (e) {
-						console.warn("Failed", e);
-					}
-
-				})()
-
-				async function setWalletTransaction(
-					instruction, connection
-				) {
-					const transaction = new solanaWeb3.Transaction();
-					transaction.add(instruction);
-					transaction.feePayer = from_address;
-					let hash = await connection.getRecentBlockhash();
-					console.log("blockhash", hash);
-					transaction.recentBlockhash = hash.blockhash;
-					return transaction;
-				}
-
-				async function signAndSendTransaction(
-					transaction,
-					connection
-				) {
-					// Sign transaction, broadcast, and confirm
-					const { signature } = await window.solana.signAndSendTransaction(transaction);
-					await connection.confirmTransaction(signature);
-					console.log("sign transaction");
-					return signature;
-				}
+						try {
+							const signedTransaction = await window.phantom.solana.signTransaction(solanaWeb3.Transaction.from(Uint8Array.from(atob(encodedTransaction), c => c.charCodeAt(0))));
+							const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+							const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+							console.log("Transaction sent with signature:", signature);
+							const confirmed = await connection.getSignatureStatus(signature);
+							console.log("Transaction confirmed:", confirmed);
+							$scope.mintNft(ticketId)
+						} catch(error) {
+							alert("Failed to purchase")
+							console.log('error', error)
+						}
+					})
+					.catch(error => console.log('error', error));
 			}
-		}).catch(error => {
-			console.log("Error", error)
 		})
 	}
 
