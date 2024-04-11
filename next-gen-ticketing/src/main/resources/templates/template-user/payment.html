@@ -63,8 +63,8 @@
 						<strong>Amount:</strong> [[${priceInSol}]] sol
 					</div>
 					<div class="btn-visa mx-auto">
-						<button th:if="${ticket}" th:attr="ng-click=@{|purchaseBySol('${ticket.id}')|}">Submit</button>
-						<button th:if="${tradingNft}" th:attr="ng-click=@{|purchaseBySol2('${tradingNft.id}')|}">Submit</button>
+						<button th:if="${ticket}" th:attr="ng-click=@{|purchaseBySol('${ticket.id}')|}" ng-disabled="disabledAfterPurchase">Submit</button>
+						<button th:if="${tradingNft}" th:attr="ng-click=@{|purchaseBySol2('${tradingNft.id}')|}" disabled>Submit</button>
 					</div>
 				</div>
 			</div>

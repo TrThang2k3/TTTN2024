@@ -230,8 +230,11 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			}
 		});
 	}
+	
+	$scope.disabledAfterPurchase = false
 
 	$scope.purchaseBySol = function(ticketId) {
+		$scope.disabledAfterPurchase = true
 		$scope.payment = "sol"
 		var exchageRate = 4342169.884
 		var walletBalance = $scope.getWalletBalance() * exchageRate
@@ -357,8 +360,11 @@ app.controller("my-ctrl", function($scope, $http, $rootScope, $timeout) {
 			console.log("Error", error)
 		})
 	}
+	
+	$scope.disabledAfterWithdraw = false
 
 	$scope.withdraw = function(walletAddress, balance, id) {
+		$scope.disabledAfterWithdraw = true
 		if (balance == 0 || balance == null) {
 			alert("Your wallet balance is zero")
 			return
